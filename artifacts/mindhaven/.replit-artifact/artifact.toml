@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Mind Haven"
+description = "Un nuovo sito italiano per Mind Haven: meditazioni, paesaggi sonori e percorsi per coltivare calma, focus e riposo, con ascolto e risorse dal canale ufficiale."
+version = "1.0.0"
+id = "artifacts/mindhaven"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25029
+
+[services.development]
+run = "pnpm --filter @workspace/mindhaven run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mindhaven", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/mindhaven/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25029"
+BASE_PATH = "/"
