@@ -1,0 +1,1 @@
+- [Mind Haven brand](mindhaven-brand.md) — User-approved logo, Montserrat typography, and six-color palette for future Mind Haven design work.
