@@ -127,7 +127,7 @@ function Hero() {
             Meditazioni gratuite, suoni immersivi e piccole routine di riposo. Un posto dove fermarti cinque minuti, o un’ora.
           </p>
           <div className="flex flex-wrap gap-3">
-            <a href="#respiro" data-testid="button-hero-breath" className="group inline-flex items-center gap-2 rounded-full bg-ember px-7 py-4 font-medium text-fir transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-10px_#e8905a]">
+            <a href="#respiro" data-testid="button-hero-breath" className="group inline-flex items-center gap-2 rounded-full bg-ember px-7 py-4 font-medium text-fir transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-10px_#ea84c2]">
               Respira con noi <ArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <a href="#sessioni" data-testid="button-hero-sessions" className="rounded-full border border-mist/40 px-7 py-4 text-mist transition hover:bg-mist/10">Ascolta una sessione</a>
@@ -167,7 +167,7 @@ function Themes() {
       <div className="mt-16 grid gap-10 lg:grid-cols-12">
         <div role="tablist" aria-label="Percorsi" className="flex flex-col lg:col-span-5">
           {THEMES.map((t, i) => (
-            <button key={t.t} role="tab" id={`tab-${i}`} aria-selected={active === i} aria-controls="theme-panel" onClick={() => setActive(i)} data-testid={`tab-theme-${t.t.toLowerCase()}`} className={`group flex items-baseline gap-5 border-t border-fir/20 py-6 text-left transition last:border-b ${active === i ? 'text-fir' : 'text-fir/40 hover:text-fir/70'}`}>
+            <button key={t.t} role="tab" id={`tab-${i}`} aria-selected={active === i} aria-controls="theme-panel" onClick={() => setActive(i)} data-testid={`tab-theme-${t.t.toLowerCase()}`} className={`group flex items-baseline gap-5 border-t border-mist/20 py-6 text-left transition last:border-b ${active === i ? 'text-lichen' : 'text-mist/45 hover:text-mist/80'}`}>
               <span className="font-mono text-sm">{t.n}</span>
               <span className="display text-5xl md:text-6xl">{t.t}</span>
               <span className={`ml-auto h-px bg-ember transition-all duration-700 ${active === i ? 'w-12' : 'w-0'}`} />
@@ -239,7 +239,7 @@ function Breath() {
             ))}
             <div
               className="flex size-[78%] items-center justify-center rounded-full bg-gradient-to-br from-moss to-fir"
-              style={{ transform: reduce ? 'none' : `scale(${running ? p.scale : 0.55})`, transition: reduce ? 'none' : `transform ${running ? p.secs : 1.5}s ${idx === 1 ? 'linear' : 'ease-in-out'}`, boxShadow: '0 0 80px -20px #3f6b55' }}
+              style={{ transform: reduce ? 'none' : `scale(${running ? p.scale : 0.55})`, transition: reduce ? 'none' : `transform ${running ? p.secs : 1.5}s ${idx === 1 ? 'linear' : 'ease-in-out'}`, boxShadow: '0 0 80px -20px #45d0bd' }}
             >
             </div>
             <div className="absolute text-center">
@@ -386,7 +386,7 @@ function Guide() {
 
 function Blog() {
   return (
-    <section id="blog" className="scroll-mt-10 bg-lichen py-28 md:py-36">
+    <section id="blog" className="scroll-mt-10 bg-fir-2 py-28 md:py-36">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-10 lg:grid-cols-12">
         <Reveal className="lg:col-span-5">
           <p className="text-sm uppercase tracking-[0.25em] text-moss">Dal blog</p>
