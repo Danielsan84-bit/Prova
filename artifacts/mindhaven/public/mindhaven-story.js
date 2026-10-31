@@ -135,6 +135,7 @@
       border-radius: 999px;
       padding: 2px 10px;
       line-height: 1.4;
+      font-size: 8.5px;
       text-transform: uppercase;
       white-space: nowrap;
       font-weight: 800 !important;
@@ -605,6 +606,13 @@
     const box = title?.parentElement;
     if (!box || !box.classList.contains('overflow-hidden')) return false;
     if (box.dataset.mhMorningRoutineBuilt === 'true') return true;
+
+    const oldAudioBadge = [...(box.parentElement?.children ?? [])].find(
+      (sibling) =>
+        sibling !== box &&
+        sibling.textContent.includes('Mixato a 432Hz + 40Hz gamma'),
+    );
+    oldAudioBadge?.remove();
 
     box.classList.add('mh-morning-premium-box');
     box.dataset.mhMorningRoutineBuilt = 'true';
