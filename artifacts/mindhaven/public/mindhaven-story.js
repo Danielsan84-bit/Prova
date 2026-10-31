@@ -73,6 +73,9 @@
       display: none !important;
       background: none !important;
     }
+    #benefici .mh-benefit-number {
+      color: #EDF7F9 !important;
+    }
     #benefici .mh-benefit-icon img {
       display: block;
       width: 20px;
@@ -427,13 +430,15 @@
     .mh-footer-socials a {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      padding: 9px 12px;
+      min-width: 160px;
+      padding: 12px 18px;
       border: 1px solid rgba(65, 186, 205, .22);
       border-radius: 999px;
       background: rgba(22, 39, 67, .34);
       color: rgba(236, 247, 249, .86);
-      font-size: 10px;
+      font-size: 11px;
       text-decoration: none;
       transition: border-color .2s ease, color .2s ease, background .2s ease, transform .2s ease;
     }
@@ -499,11 +504,15 @@
         gap: 12px;
       }
       .mh-footer-socials nav {
+        display: grid;
+        grid-template-columns: 1fr;
         width: 100%;
         gap: 8px;
       }
       .mh-footer-socials a {
-        padding: 9px 10px;
+        width: 100%;
+        min-width: 0;
+        padding: 12px 14px;
       }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -596,7 +605,25 @@
       image.decoding = 'async';
       if (!image.parentElement) badge.replaceChildren(image);
     });
-    return true;
+    const cards = [...document.querySelectorAll('#benefici .grid > div')].slice(0, 3);
+    if (cards.length < 3) return false;
+    cards.forEach((card, index) => {
+      const label = `0${index + 1}`;
+      const number = [...card.querySelectorAll('span')].find(
+        (span) => span.textContent.trim() === label,
+      );
+      if (number) {
+        number.classList.add('mh-benefit-number');
+        number.style.setProperty('color', '#EDF7F9', 'important');
+      }
+    });
+    return cards.every((card, index) =>
+      [...card.querySelectorAll('span')].some(
+        (span) =>
+          span.textContent.trim() === `0${index + 1}` &&
+          span.classList.contains('mh-benefit-number'),
+      ),
+    );
   };
 
   const applyMorningRoutineBox = () => {

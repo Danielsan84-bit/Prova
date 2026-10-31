@@ -21,7 +21,7 @@ Approved palette and intended visual balance:
 
 **Why:** In the landing funnel, changing only a generated CSS declaration leaves its color-specific selector unmatched and can cause sections to fall back to browser defaults.
 
-**How to apply:** For runtime recoloring, update class tokens and their generated selectors together, and preserve the original CSS color-function syntax.
+**How to apply:** For runtime recoloring, update class tokens and their generated selectors together, preserve CSS color-function syntax, and verify computed styles; exact color overrides may need matching specificity or an inline override.
 
 For future Mind Haven pages, aim for a premium blend of Apple's clarity, Brain.fm's focus-oriented framing, and Insight Timer's welcoming breadth. Use these as high-level references only; do not copy their layouts, copy, or assets.
 
