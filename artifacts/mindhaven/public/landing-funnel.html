@@ -2473,6 +2473,7 @@ summary {
     transform: translateY(-3px);
   }
   #benefici .grid > div > div:first-child {
+    align-items: center !important;
     margin-bottom: 22px !important;
   }
   #benefici .grid > div > div:first-child > span:first-child {
@@ -2488,14 +2489,20 @@ summary {
     box-shadow: 0 0 0 4px rgba(65,186,205,.035);
     color: transparent !important;
     font-size: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    flex: 0 0 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
   }
   #benefici .grid > div:nth-child(1) > div:first-child > span:nth-child(2)::before,
   #benefici .grid > div:nth-child(2) > div:first-child > span:nth-child(2)::before,
   #benefici .grid > div:nth-child(3) > div:first-child > span:nth-child(2)::before {
     content: "";
     display: block;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -2706,5 +2713,6 @@ Error generating stack: `+o.message+`
 </script>
   <script>(function(){function m(a){var h=a.getAttribute("href");if(!h)return;try{var u=new URL(h,document.baseURI);if(((u.protocol==="http:"||u.protocol==="https:")&&u.host!==location.host)||u.protocol==="mailto:"||u.protocol==="tel:"||u.protocol==="sms:"){a.target="_blank";a.rel="noopener noreferrer";}}catch(e){}}function s(){document.querySelectorAll("a[href]").forEach(m);}if(document.readyState!=="loading"){s();}else{document.addEventListener("DOMContentLoaded",s);}document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest("a[href]");if(a){m(a);}},true);})();</script>
   <script type="application/json" data-clippy-inline-media-manifest="1">{"version":1,"slots":[]}</script>
+  <script src="./mindhaven-story.js" defer></script>
 </body>
 </html>
