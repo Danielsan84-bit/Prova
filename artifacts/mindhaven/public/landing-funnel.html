@@ -2448,15 +2448,21 @@ summary {
     border-color: rgba(22,39,67,.9) !important;
     box-shadow: 0 8px 22px rgba(0,0,0,.3) !important;
   }
+  #benefici > div:nth-child(2) {
+    width: 100%;
+    max-width: 920px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
   #benefici .grid > div {
     display: flex;
     flex-direction: column;
-    min-height: 340px;
-    background: linear-gradient(145deg, rgba(22,39,67,.52), rgba(8,17,16,.94)) !important;
-    border: 1px solid rgba(22,39,67,.92) !important;
-    border-radius: 20px !important;
+    min-height: 344px;
+    background: linear-gradient(145deg, rgba(22,39,67,.34), rgba(8,17,16,.98)) !important;
+    border: 1px solid rgba(22,39,67,.72) !important;
+    border-radius: 24px !important;
     box-shadow: 0 18px 42px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.025) !important;
-    padding: 24px !important;
+    padding: 28px !important;
     transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease;
   }
   #benefici .grid > div:hover,
@@ -2470,7 +2476,7 @@ summary {
     margin-bottom: 22px !important;
   }
   #benefici .grid > div > div:first-child > span:first-child {
-    color: rgba(65,186,205,.16) !important;
+    color: rgba(22,39,67,.9) !important;
     font-size: 42px !important;
     letter-spacing: -.05em;
   }
@@ -2516,7 +2522,8 @@ summary {
   }
   #benefici .grid > div > p {
     color: #ECF7F9 !important;
-    font-weight: 500 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
     line-height: 1.55 !important;
   }
   #benefici .grid > div > div:nth-last-child(2) {
@@ -2529,6 +2536,17 @@ summary {
   @media (max-width: 767px) {
     #benefici .grid > div {
       min-height: 0;
+      padding: 24px !important;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    #benefici > div:nth-child(2) {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    #benefici > div:nth-child(2) > div:nth-child(3) {
+      grid-column: 1 / -1;
+      width: calc(50% - 10px);
+      justify-self: center;
     }
   }
   #testimonianze .grid > div,
@@ -2552,6 +2570,94 @@ summary {
     color: transparent !important;
     font-size: 0 !important;
     overflow: hidden;
+  }
+  header > div:first-child {
+    position: relative;
+  }
+  header > div:first-child > div:first-child > span:nth-child(2) {
+    font-size: 17px !important;
+    letter-spacing: .18em !important;
+    line-height: 1 !important;
+  }
+  header > div:first-child > div:first-child > span:nth-child(3) {
+    display: none !important;
+  }
+  header > div:first-child > div:last-child > button:first-child {
+    display: none !important;
+  }
+  @media (min-width: 1024px) {
+    header > div:first-child > nav {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+    header > div:first-child > div:last-child {
+      display: none !important;
+    }
+  }
+  @media (max-width: 767px) {
+    header > div:first-child > div:first-child > span:nth-child(2) {
+      font-size: 15px !important;
+    }
+  }
+  main > section:not(#hero):not(#faq) {
+    width: 100% !important;
+    max-width: 1180px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  #blog > div:first-child {
+    position: relative;
+    display: block !important;
+    max-width: 760px;
+    margin: 0 auto 40px !important;
+    text-align: center;
+  }
+  #blog > div:first-child > div:first-child {
+    text-align: center;
+  }
+  #blog > div:first-child > button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  #testimonianze > div:first-child {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    max-width: 760px;
+    margin: 0 auto 40px !important;
+    text-align: center;
+  }
+  #testimonianze > div:first-child > div:first-child {
+    text-align: center;
+  }
+  #testimonianze > div:first-child > p {
+    max-width: 44ch !important;
+    margin: 14px auto 0 !important;
+    text-align: center;
+  }
+  #hero-form input {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(8,17,16,.14) !important;
+    border-radius: 12px !important;
+    color: #081110 !important;
+    caret-color: #081110;
+  }
+  #hero-form input::placeholder {
+    color: rgba(8,17,16,.68) !important;
+    opacity: 1;
+  }
+  #hero-form > div > div > span {
+    color: #081110 !important;
+  }
+  #hero-form input:focus {
+    border-color: rgba(65,186,205,.78) !important;
+    box-shadow: 0 0 0 3px rgba(65,186,205,.14);
+    outline: none !important;
   }
 </style>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
