@@ -95,10 +95,19 @@
       values.has(span.textContent.trim()),
     );
     matches.forEach((span) => span.parentElement?.classList.add('mh-gold-stat'));
-    return matches.length === values.size;
+    return new Set(matches.map((span) => span.textContent.trim())).size === values.size;
   };
 
-  const applyPageUpdates = () => applyStory() && applyDanielePhoto() && applyHeroStats();
+  const applySectionOrder = () => {
+    const benefits = document.querySelector('#benefici');
+    const story = document.querySelector('#chi-siamo');
+    if (!benefits || !story) return false;
+    if (benefits.nextElementSibling !== story) benefits.after(story);
+    return true;
+  };
+
+  const applyPageUpdates = () =>
+    applyStory() && applyDanielePhoto() && applyHeroStats() && applySectionOrder();
 
   if (applyPageUpdates()) return;
 
