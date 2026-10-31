@@ -20,7 +20,7 @@ const pages = [
     path: "/",
     title: "Meditazioni guidate per il subconscio | Mind Haven",
     description:
-      "Meditazioni guidate in italiano per esplorare i tuoi schemi e coltivare nuove abitudini. Non suoni binaurali: una voce accompagna la pratica.",
+      "Meditazioni guidate in italiano, non suoni binaurali. Ricevi via email una pratica gratuita per la morning routine e coltiva nuove abitudini.",
   },
   {
     path: "/sonno",

@@ -8,9 +8,10 @@ import PlatformLinks from '@/components/platform-links';
 const YT = 'https://www.youtube.com/@mindhavenita/videos';
 const SUB = 'https://www.youtube.com/@mindhavenita?sub_confirmation=1';
 const ACCOUNT = 'https://www.mindhaven.club/my-account/';
+const FREE_MEDITATION = 'https://mindhavenita.systeme.io/welcome?utm_source=mindhaven&utm_medium=website&utm_campaign=free_meditation&utm_content=homepage_funnel';
 const NAV = [
   { href: '#percorso', label: 'Scegli un percorso' },
-  { href: '#sessioni', label: 'Sessioni' },
+  { href: '#funnel', label: 'Meditazione gratuita' },
   { href: '#respiro', label: 'Respiro' },
   { href: '#pratica', label: 'La pratica' },
   { href: '#guida', label: 'Guida' },
@@ -22,7 +23,6 @@ const THEMES = [
   { n: '03', t: 'Sonno', d: 'Meditazioni guidate per accompagnare la sera e creare una routine di riposo più calma.', img: '/images/night.jpg', tone: 'Notte aperta', icon: Moon },
   { n: '04', t: 'Potenziale', d: 'Spazi di ascolto e visualizzazione per tornare a chiederti dove vuoi andare.', img: '/images/hero-forest.jpg', tone: 'Crinale all’alba', icon: Compass },
 ];
-const VIDEOS = ['JSdTubLRVUk', 'csPmohULrRU', 'XA6G4Wg3bxY', 'qBbf98KGa9s', 'uC2RjTVEAXc', 'ivrpDCngxAg'];
 const PHASES = [
   { label: 'Inspira', secs: 4, scale: 1 },
   { label: 'Trattieni', secs: 2, scale: 1 },
@@ -137,7 +137,7 @@ function Pathway({ active, onSelect }: { active: number; onSelect: (index: numbe
           {THEMES.map((item, i) => <img key={item.t} src={item.img} alt={i === active ? `Paesaggio: ${item.tone}` : ''} aria-hidden={i !== active} className={active === i ? 'active' : ''} loading="lazy" />)}
           <div className="mh-path-overlay" />
           <div className="mh-path-card-meta"><span>PERCORSO {theme.n}</span><span>{theme.tone}</span></div>
-          <div className="mh-path-card-copy"><p>{theme.t}</p><h3>{theme.d}</h3><a href="#sessioni">Vai alle sessioni disponibili <ArrowRight size={15} /></a></div>
+          <div className="mh-path-card-copy"><p>{theme.t}</p><h3>{theme.d}</h3><a href="#funnel">Ricevi una pratica gratuita <ArrowRight size={15} /></a></div>
           <div className="mh-path-card-marker">MH <i>·</i> {theme.n}</div>
         </div>
       </div>
@@ -145,26 +145,28 @@ function Pathway({ active, onSelect }: { active: number; onSelect: (index: numbe
   </section>;
 }
 
-function Sessions({ onPlay }: { onPlay: (id: string) => void }) {
-  return <section id="sessioni" className="mh-sessions">
-    <div className="mh-wrap">
-      <div className="mh-session-head">
-        <Reveal><p className="mh-kicker">Ascolta quando vuoi</p><h2>Sessioni guidate,<br /><em>qui e ora.</em></h2></Reveal>
-        <Reveal delay={.08} className="mh-session-aside"><span className="mh-youtube-chip"><span /> DAL CANALE YOUTUBE</span><p>Esplora le sessioni gratuite in italiano. Scegli una copertina per aprirla.</p><a href={YT} target="_blank" rel="noopener noreferrer">Tutti i video <ArrowUpRight size={14} /></a></Reveal>
-      </div>
-      <div className="mh-session-grid">
-        {VIDEOS.map((id, i) => <Reveal key={id} delay={(i % 3) * .05} className={`mh-session-card ${i === 0 ? 'featured' : ''}`}>
-          <button onClick={() => onPlay(id)} aria-label={`Apri la sessione ${i + 1}`} className="mh-session-play">
-            <img src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" />
-            <span className="mh-session-shade" />
-            <span className="mh-session-no">SESSIONE <b>{String(i + 1).padStart(2, '0')}</b></span>
-            <span className="mh-play-button"><Play size={15} fill="currentColor" /></span>
-            <span className="mh-session-open">ASCOLTA <ArrowUpRight size={12} /></span>
-          </button>
-          <div className="mh-card-caption"><span>Mind Haven · YouTube</span><span>{String(i + 1).padStart(2, '0')} / 06</span></div>
-        </Reveal>)}
-      </div>
-      <div className="mh-session-bottom"><span>Una sessione alla volta. Nessuna fretta.</span><a href={SUB} target="_blank" rel="noopener noreferrer">Iscriviti al canale <ArrowUpRight size={14} /></a></div>
+function LeadFunnel() {
+  return <section id="funnel" className="mh-lead-funnel">
+    <div className="mh-wrap mh-lead-layout">
+      <Reveal className="mh-lead-copy">
+        <p className="mh-kicker">LA TUA PRIMA PRATICA, GRATIS</p>
+        <h2>Un risveglio più<br /><em>presente.</em></h2>
+        <p>Ricevi via email una meditazione guidata in formato MP3 per la morning routine. Una voce ti accompagna: niente suoni binaurali.</p>
+        <ul>
+          <li>Una pratica mattutina guidata</li>
+          <li>Da ascoltare al tuo ritmo</li>
+          <li>Iscrizione gratuita, senza impegno</li>
+        </ul>
+        <a href={FREE_MEDITATION} className="mh-lead-cta" data-testid="link-free-morning-meditation">Ricevi la meditazione gratuita <ArrowRight size={16} /></a>
+        <span className="mh-lead-note">Lascia la tua email nel modulo Systeme.io per ricevere l’audio.</span>
+      </Reveal>
+      <Reveal delay={.08} className="mh-first-pack">
+        <p className="mh-first-pack-label">IL PRIMO PERCORSO A PAGAMENTO · IN PREPARAZIONE</p>
+        <h3>Morning<br /><em>Routine</em></h3>
+        <p className="mh-first-pack-duration">7 giorni · 7 meditazioni guidate</p>
+        <p>Una pratica al mattino per costruire un rituale semplice e ripetibile, senza dover cambiare tutta la tua giornata.</p>
+        <span className="mh-first-pack-price">Prezzo in definizione</span>
+      </Reveal>
     </div>
   </section>;
 }
@@ -254,7 +256,6 @@ function Footer() {
 
 export default function Home() {
   const [activeTheme, setActiveTheme] = useState(0);
-  const [video, setVideo] = useState<string | null>(null);
   useEffect(() => { document.documentElement.lang = 'it'; }, []);
   return <div className="grain mh-premium">
     <style>{`
@@ -305,23 +306,12 @@ export default function Home() {
         <PlatformLinks context="homepage" />
       </section>
       <Pathway active={activeTheme} onSelect={setActiveTheme} />
-      <Sessions onPlay={setVideo} />
+      <LeadFunnel />
       <Breath />
       <GuidedPractice />
       <Guide />
       <ResearchPreview />
     </main>
     <Footer />
-    <Dialog.Root open={!!video} onOpenChange={open => !open && setVideo(null)}>
-      <Dialog.Portal>
-        <Dialog.Overlay className="mh-video-overlay" />
-        <Dialog.Content className="mh-video-dialog">
-          <Dialog.Title className="sr-only">Sessione video Mind Haven</Dialog.Title>
-          <Dialog.Description className="sr-only">Riproduzione della sessione da YouTube</Dialog.Description>
-          {video && <iframe className="mh-video-frame" src={`https://www.youtube-nocookie.com/embed/${video}?autoplay=1&rel=0`} title="Sessione Mind Haven" allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />}
-          <div className="mh-video-controls">{video && <a href={`https://www.youtube.com/watch?v=${video}`} target="_blank" rel="noopener noreferrer">Se non parte, aprila su YouTube <ArrowUpRight size={14} /></a>}<Dialog.Close asChild><button>Chiudi</button></Dialog.Close></div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
   </div>;
 }
