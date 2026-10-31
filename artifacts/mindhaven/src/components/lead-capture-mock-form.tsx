@@ -27,7 +27,7 @@ export default function LeadCaptureMockForm() {
           <div className="mh-mock-form-heading">
             <p className="mh-mock-form-eyebrow">AUDIO GRATUITO · MEDITAZIONE GUIDATA</p>
             <h3>La tua pratica del mattino,<br /><em>nella tua email.</em></h3>
-            <p>Una voce ti accompagna in una meditazione guidata in italiano. Non sono suoni binaurali.</p>
+            <p>Una voce ti accompagna in una meditazione guidata in italiano, da ascoltare al tuo ritmo.</p>
           </div>
 
           <label className="mh-mock-form-label" htmlFor="mh-mock-email">Indirizzo email</label>

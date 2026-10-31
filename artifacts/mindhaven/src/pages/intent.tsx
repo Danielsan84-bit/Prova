@@ -24,11 +24,11 @@ const paths = {
   },
   '/focus': {
     key: 'focus', name: 'Concentrazione', seoTitle: 'Meditazioni guidate per concentrarsi in italiano | Mind Haven', title: <>Meditazioni per concentrarti,<br /><em>con calma.</em></>,
-    description: 'Meditazioni guidate in italiano per allenare l’attenzione e ritrovare il filo durante studio e lavoro. Una voce accompagna la pratica: non sono suoni binaurali.',
+    description: 'Meditazioni guidate in italiano per allenare l’attenzione e ritrovare il filo durante studio e lavoro. Una voce accompagna la pratica.',
     image: '/images/moss.jpg', alt: 'Felci e muschio in un bosco silenzioso',
     eyebrow: 'Per studiare, per concentrarti', intro: 'Fai spazio a ciò che hai davanti. Una voce ti guida a riportare l’attenzione al momento presente.',
     practice: 'Apri una meditazione guidata gratuita e scegli una pratica che accompagni il tuo tempo di studio o lavoro.',
-    features: [['01', 'Una voce che guida', 'Indicazioni semplici accompagnano l’attenzione, senza battiti binaurali.'], ['02', 'Attenzione, non prestazione', 'Non c’è un risultato da raggiungere. Puoi fermarti o riprendere quando vuoi.'], ['03', 'Un’intenzione alla volta', 'Una pratica ripetibile può aiutarti a coltivare consapevolezza e nuove abitudini.']],
+    features: [['01', 'Una voce che guida', 'Indicazioni semplici accompagnano l’attenzione e ti riportano al momento presente.'], ['02', 'Attenzione, non prestazione', 'Non c’è un risultato da raggiungere. Puoi fermarti o riprendere quando vuoi.'], ['03', 'Un’intenzione alla volta', 'Una pratica ripetibile può aiutarti a coltivare consapevolezza e nuove abitudini.']],
   },
 } as const;
 
@@ -58,7 +58,7 @@ export default function Intent() {
   const Icon = current.key === 'sonno' ? Moon : current.key === 'focus' ? Focus : Wind;
   return <div className="intent-page">
     <header className="ih-header">
-      <Link href="/" className="ih-brand" aria-label="Mind Haven, torna alla homepage"><img src="/images/mind-haven-mark.png" alt="" /><span>MIND HAVEN<small>UN RIFUGIO PER LA MENTE</small></span></Link>
+      <Link href="/" className="ih-brand" aria-label="Mind Haven, torna alla homepage"><img src="/images/mind-haven-mark.png" alt="" /><span>MIND HAVEN<small>CHANGE BEGINS WITHIN</small></span></Link>
       <nav aria-label="Navigazione principale"><Link href="/sonno" className={current.key === 'sonno' ? 'selected' : ''}>Sonno</Link><Link href="/respiro" className={current.key === 'respiro' ? 'selected' : ''}>Respiro e calma</Link><Link href="/focus" className={current.key === 'focus' ? 'selected' : ''}>Concentrazione</Link></nav>
       <Link href="/" className="ih-back"><ArrowLeft size={15} /> Tutti i percorsi</Link>
     </header>
@@ -94,6 +94,6 @@ export default function Intent() {
       <section className="ih-more"><div><p className="ih-label">PUOI CAMBIARE DIREZIONE</p><h2>Segui ciò che ti serve.</h2></div><div className="ih-more-links">{Object.entries(paths).filter(([path]) => path !== location).map(([path, item]) => <Link key={path} href={path}><span>{item.name}</span><ArrowUpRight size={16} /></Link>)}</div></section>
       <section className="ih-disclaimer"><p>Mind Haven propone pratiche di benessere e rilassamento, non diagnosi o trattamenti medici o psicologici. Non sostituisce il parere di un professionista della salute. Se la meditazione ti provoca disagio, interrompila e chiedi supporto. Non ascoltare alla guida.</p></section>
     </main>
-    <footer className="ih-footer"><Link href="/"><img src="/images/mind-haven-lockup.png" alt="Mind Haven — Change begins within" /></Link><p>Un rifugio per la mente · in italiano</p><Link href="/" className="ih-footer-home">Torna alla homepage <ArrowRight size={14} /></Link></footer>
+    <footer className="ih-footer"><Link href="/"><img src="/images/mind-haven-lockup.png" alt="Mind Haven — Change begins within" /></Link><p>Meditazioni guidate · in italiano</p><Link href="/" className="ih-footer-home">Torna alla homepage <ArrowRight size={14} /></Link></footer>
   </div>;
 }

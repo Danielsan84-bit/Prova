@@ -9,4 +9,4 @@ Use “riprogrammare il subconscio” as brand language for exploring patterns, 
 
 **Why:** the user explicitly clarified the product positioning, and current evidence does not establish literal subconscious reprogramming or product-specific clinical effects.
 
-**How to apply:** foreground voice-led guided practice in Mind Haven copy, avoid positioning it as binaural audio, and cite research with its limitations.
+**How to apply:** Describe the voice-led practice positively and omit comparisons with binaural audio from site copy unless the user asks for them. Use “riprogrammare il subconscio” only as a metaphor, and cite research with its limitations.

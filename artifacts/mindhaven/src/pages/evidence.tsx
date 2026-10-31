@@ -28,7 +28,7 @@ export default function Evidence() {
       <header className="ih-header">
         <Link href="/" className="ih-brand" aria-label="Mind Haven, torna alla homepage">
           <img src="/images/mind-haven-mark.png" alt="" />
-          <span>MIND HAVEN<small>UN RIFUGIO PER LA MENTE</small></span>
+          <span>MIND HAVEN<small>CHANGE BEGINS WITHIN</small></span>
         </Link>
         <Link href="/" className="ih-back"><ArrowLeft size={15} /> Torna alla homepage</Link>
       </header>
@@ -38,7 +38,7 @@ export default function Evidence() {
             <p className="ih-eyebrow">APPROFONDIMENTO · STUDI E FONTI</p>
             <h1>Meditazione guidata:<br /><em>benefici e limiti.</em></h1>
             <p>
-              Mind Haven propone pratiche guidate dalla voce, non suoni binaurali.
+              Mind Haven propone meditazioni guidate dalla voce.
               Qui trovi cosa suggeriscono gli studi, cosa resta da dimostrare e cosa
               intendiamo quando parliamo di “riprogrammare il subconscio”.
             </p>
@@ -53,9 +53,7 @@ export default function Evidence() {
             <p className="mh-evidence-copy">
               In una meditazione guidata, una voce propone indicazioni per riportare
               l’attenzione al respiro, al corpo, ai pensieri o a un’immagine mentale.
-              La persona ascolta e segue la pratica al proprio ritmo. I battiti
-              binaurali sono invece una tecnica audio basata su due toni differenti
-              inviati separatamente alle orecchie: non sono il metodo Mind Haven.
+              La persona ascolta e segue la pratica al proprio ritmo.
             </p>
           </div>
         </section>
@@ -138,7 +136,7 @@ export default function Evidence() {
       </main>
       <footer className="ih-footer">
         <Link href="/"><img src="/images/mind-haven-lockup.png" alt="Mind Haven — Change begins within" /></Link>
-        <p>Un rifugio per la mente · in italiano</p>
+        <p>Meditazioni guidate · in italiano</p>
         <Link href="/" className="ih-footer-home">Torna alla homepage <ArrowLeft size={14} /></Link>
       </footer>
     </div>

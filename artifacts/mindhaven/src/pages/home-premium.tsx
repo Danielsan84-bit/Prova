@@ -30,7 +30,7 @@ function Logo({ footer = false }: { footer?: boolean }) {
   return <a href="#top" className={`mh-logo ${footer ? 'mh-logo-footer' : ''}`} aria-label="Mind Haven, torna all'inizio">
     {footer
       ? <img src="/images/mind-haven-lockup.png" alt="Mind Haven — Change begins within" />
-      : <><img src="/images/mind-haven-mark.png" alt="" /><span>MIND HAVEN<small>UN RIFUGIO PER LA MENTE</small></span></>}
+      : <><img src="/images/mind-haven-mark.png" alt="" /><span>MIND HAVEN<small>CHANGE BEGINS WITHIN</small></span></>}
   </a>;
 }
 
@@ -70,9 +70,9 @@ function Hero() {
   return <section id="top" className="mh-hero">
     <div className="mh-hero-inner">
       <Reveal className="mh-hero-copy">
-        <p className="mh-eyebrow"><span /> Un rifugio per la mente · in italiano</p>
+        <p className="mh-eyebrow"><span /> Change begins within</p>
         <h1>Meditazioni guidate,<br />un momento alla volta.</h1>
-        <p className="mh-hero-lede">Una voce ti accompagna a esplorare i tuoi schemi e coltivare nuove abitudini. Meditazioni guidate in italiano, non suoni binaurali.</p>
+        <p className="mh-hero-lede">Una voce ti accompagna a esplorare i tuoi schemi e coltivare nuove abitudini. Meditazioni guidate in italiano.</p>
         <div className="mh-hero-links">
           <a href={LEAD_FORM_ANCHOR} className="mh-primary-link" onClick={() => trackSignupCtaClick('homepage', 'homepage_hero')}>Ricevi la meditazione gratuita <ArrowRight size={16} /></a>
           <a href="#pratica" className="mh-secondary-link">Scopri il metodo <ArrowDownRight size={15} /></a>
@@ -83,7 +83,7 @@ function Hero() {
       <motion.div className="mh-hero-visual" initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .15 }}>
         <img src="/images/hero-forest.jpg" alt="Luce del mattino tra gli alberi" fetchPriority="high" />
         <div className="mh-hero-visual-shade" />
-        <div className="mh-hero-visual-caption"><span>MIND HAVEN · PRATICA GUIDATA</span><strong>Change begins within.</strong></div>
+        <div className="mh-hero-visual-caption"><span>MIND HAVEN · PRATICA GUIDATA</span><strong>Change begins within</strong></div>
       </motion.div>
     </div>
     <div className="mh-hero-bottomline"><span>MEDITAZIONE GUIDATA · CONSAPEVOLEZZA · RIPOSO</span><a href="#funnel">INIZIA CON L’AUDIO GRATUITO <ArrowDownRight size={13} /></a></div>
@@ -127,7 +127,7 @@ function LeadFunnel() {
       <Reveal className="mh-lead-copy">
         <p className="mh-kicker">01 · INIZIA GRATIS</p>
         <h2>Un risveglio più<br /><em>presente.</em></h2>
-        <p>Ricevi via email una meditazione guidata in formato MP3 per la morning routine. Una voce ti accompagna: niente suoni binaurali.</p>
+        <p>Ricevi via email una meditazione guidata in formato MP3 per la morning routine, con una voce che ti accompagna.</p>
         <ul>
           <li>Una pratica mattutina guidata</li>
           <li>Da ascoltare al tuo ritmo</li>
