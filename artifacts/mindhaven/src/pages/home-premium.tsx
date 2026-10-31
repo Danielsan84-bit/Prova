@@ -1,21 +1,17 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Compass, Focus, Menu, Moon, Pause, Play, Waves, X } from 'lucide-react';
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Compass, Focus, Menu, Moon, Waves, X } from 'lucide-react';
 import { Link } from 'wouter';
 import PlatformLinks from '@/components/platform-links';
 
-const YT = 'https://www.youtube.com/@mindhavenita/videos';
-const SUB = 'https://www.youtube.com/@mindhavenita?sub_confirmation=1';
 const ACCOUNT = 'https://www.mindhaven.club/my-account/';
 const FREE_MEDITATION = 'https://mindhavenita.systeme.io/welcome?utm_source=mindhaven&utm_medium=website&utm_campaign=free_meditation&utm_content=homepage_funnel';
 const NAV = [
-  { href: '#percorso', label: 'Scegli un percorso' },
-  { href: '#funnel', label: 'Meditazione gratuita' },
-  { href: '#respiro', label: 'Respiro' },
-  { href: '#pratica', label: 'La pratica' },
-  { href: '#guida', label: 'Guida' },
-  { href: '#ricerca', label: 'La ricerca' },
+  { href: '#percorso', label: 'Percorsi' },
+  { href: '#morning-routine', label: 'Morning Routine' },
+  { href: '#pratica', label: 'Il metodo' },
+  { href: '/ricerca-meditazione-guidata', label: 'La ricerca' },
 ];
 const THEMES = [
   { n: '01', t: 'Focus', d: 'Meditazioni guidate per ritrovare attenzione e dedicarti allo studio o al lavoro.', img: '/images/moss.jpg', tone: 'Verde muschio', icon: Focus },
@@ -23,14 +19,9 @@ const THEMES = [
   { n: '03', t: 'Sonno', d: 'Meditazioni guidate per accompagnare la sera e creare una routine di riposo più calma.', img: '/images/night.jpg', tone: 'Notte aperta', icon: Moon },
   { n: '04', t: 'Potenziale', d: 'Spazi di ascolto e visualizzazione per tornare a chiederti dove vuoi andare.', img: '/images/hero-forest.jpg', tone: 'Crinale all’alba', icon: Compass },
 ];
-const PHASES = [
-  { label: 'Inspira', secs: 4, scale: 1 },
-  { label: 'Trattieni', secs: 2, scale: 1 },
-  { label: 'Espira', secs: 6, scale: 0.55 },
-];
-function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
+function Reveal({ children, delay = 0, className = '', id }: { children: ReactNode; delay?: number; className?: string; id?: string }) {
   const reduce = useReducedMotion();
-  return <motion.div className={className} initial={reduce ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}>{children}</motion.div>;
+  return <motion.div id={id} className={className} initial={reduce ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}>{children}</motion.div>;
 }
 
 function Logo({ footer = false }: { footer?: boolean }) {
@@ -54,7 +45,7 @@ function Header() {
     <div className="mh-header-inner">
       <Logo />
       <nav className="mh-nav" aria-label="Principale">{NAV.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</nav>
-      <a href={ACCOUNT} target="_blank" rel="noopener noreferrer" className="mh-account">Il mio account <ArrowUpRight size={14} /></a>
+      <a href={FREE_MEDITATION} className="mh-account">Inizia gratis <ArrowRight size={14} /></a>
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild><button className="mh-menu" aria-label="Apri il menu"><Menu size={20} /></button></Dialog.Trigger>
         <Dialog.Portal>
@@ -64,7 +55,7 @@ function Header() {
             <Dialog.Title className="sr-only">Menu Mind Haven</Dialog.Title>
             <Dialog.Description className="sr-only">Navigazione del sito</Dialog.Description>
             <nav aria-label="Mobile">{NAV.map((item, i) => <a href={item.href} key={item.href} onClick={() => setOpen(false)}><small>0{i + 1}</small>{item.label}<ArrowUpRight size={17} /></a>)}</nav>
-            <a href={ACCOUNT} target="_blank" rel="noopener noreferrer" className="mh-mobile-account">Il mio account <ArrowUpRight size={15} /></a>
+            <a href={FREE_MEDITATION} className="mh-mobile-account" onClick={() => setOpen(false)}>Ricevi la meditazione gratuita <ArrowRight size={15} /></a>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
@@ -72,45 +63,28 @@ function Header() {
   </header>;
 }
 
-function Hero({ active, onSelect }: { active: number; onSelect: (index: number) => void }) {
+function Hero() {
   const reduce = useReducedMotion();
-  const theme = THEMES[active];
   return <section id="top" className="mh-hero">
     <div className="mh-hero-inner">
       <Reveal className="mh-hero-copy">
         <p className="mh-eyebrow"><span /> Un rifugio per la mente · in italiano</p>
         <h1>Meditazioni guidate,<br />un momento alla volta.</h1>
-        <p className="mh-hero-lede">Meditazioni guidate per “riprogrammare” il subconscio: esplora i tuoi schemi e allena nuove abitudini. Niente suoni binaurali: ti accompagna la voce.</p>
+        <p className="mh-hero-lede">Una voce ti accompagna a esplorare i tuoi schemi e coltivare nuove abitudini. Meditazioni guidate in italiano, non suoni binaurali.</p>
         <div className="mh-hero-links">
-          <a href="#percorsi" className="mh-primary-link">Scegli il tuo percorso <ArrowRight size={16} /></a>
-          <a href="#membership" className="mh-secondary-link">Scopri la membership in arrivo <ArrowDownRight size={15} /></a>
+          <a href={FREE_MEDITATION} className="mh-primary-link">Ricevi la meditazione gratuita <ArrowRight size={16} /></a>
+          <a href="#pratica" className="mh-secondary-link">Scopri il metodo <ArrowDownRight size={15} /></a>
         </div>
-        <div className="mh-hero-foot"><span className="mh-foot-mark">01</span><span>Ascolto guidato, al tuo ritmo</span></div>
+        <div className="mh-hero-foot"><span className="mh-foot-mark">01</span><span>Una pratica alla volta · senza fretta</span></div>
       </Reveal>
 
-      <motion.div className="mh-finder" initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .15 }}>
-        <div className="mh-finder-top">
-          <div><span className="mh-finder-label">Da cosa vuoi partire?</span><h2>Scegli il tuo spazio.</h2></div>
-          <span className="mh-finder-count">01 <i>/</i> 04</span>
-        </div>
-        <div className="mh-finder-image">
-          {THEMES.map((item, i) => <img key={item.t} src={item.img} alt={i === active ? `Paesaggio: ${item.tone}` : ''} aria-hidden={i !== active} className={i === active ? 'active' : ''} />)}
-          <div className="mh-finder-image-shade" />
-          <div className="mh-finder-caption"><span>IL TUO PERCORSO</span><b>{theme.tone}</b></div>
-        </div>
-        <div className="mh-finder-options" role="tablist" aria-label="Scegli un percorso">
-          {THEMES.map((item, i) => {
-            const Icon = item.icon;
-            return <button key={item.t} role="tab" aria-selected={i === active} aria-controls="finder-description" onClick={() => onSelect(i)} className={i === active ? 'active' : ''}>
-              <Icon size={16} strokeWidth={1.6} /><span>{item.t}</span>
-            </button>;
-          })}
-        </div>
-        <p className="mh-finder-description" id="finder-description" aria-live="polite">{theme.d}</p>
-        <a href="#percorso" className="mh-finder-next">Scopri il percorso <ArrowRight size={15} /></a>
+      <motion.div className="mh-hero-visual" initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .15 }}>
+        <img src="/images/hero-forest.jpg" alt="Luce del mattino tra gli alberi" fetchPriority="high" />
+        <div className="mh-hero-visual-shade" />
+        <div className="mh-hero-visual-caption"><span>MIND HAVEN · PRATICA GUIDATA</span><strong>Change begins within.</strong></div>
       </motion.div>
     </div>
-    <div className="mh-hero-bottomline"><span>MEDITAZIONE GUIDATA · CONSAPEVOLEZZA · RIPOSO</span><span>SCORRI PER ESPLORARE <ArrowDownRight size={13} /></span></div>
+    <div className="mh-hero-bottomline"><span>MEDITAZIONE GUIDATA · CONSAPEVOLEZZA · RIPOSO</span><a href="#funnel">INIZIA CON L’AUDIO GRATUITO <ArrowDownRight size={13} /></a></div>
   </section>;
 }
 
@@ -149,7 +123,7 @@ function LeadFunnel() {
   return <section id="funnel" className="mh-lead-funnel">
     <div className="mh-wrap mh-lead-layout">
       <Reveal className="mh-lead-copy">
-        <p className="mh-kicker">LA TUA PRIMA PRATICA, GRATIS</p>
+        <p className="mh-kicker">01 · INIZIA GRATIS</p>
         <h2>Un risveglio più<br /><em>presente.</em></h2>
         <p>Ricevi via email una meditazione guidata in formato MP3 per la morning routine. Una voce ti accompagna: niente suoni binaurali.</p>
         <ul>
@@ -160,8 +134,8 @@ function LeadFunnel() {
         <a href={FREE_MEDITATION} className="mh-lead-cta" data-testid="link-free-morning-meditation">Ricevi la meditazione gratuita <ArrowRight size={16} /></a>
         <span className="mh-lead-note">Lascia la tua email nel modulo Systeme.io per ricevere l’audio.</span>
       </Reveal>
-      <Reveal delay={.08} className="mh-first-pack">
-        <p className="mh-first-pack-label">IL PRIMO PERCORSO A PAGAMENTO · IN PREPARAZIONE</p>
+      <Reveal delay={.08} className="mh-first-pack" id="morning-routine">
+        <p className="mh-first-pack-label">02 · IL PASSO SUCCESSIVO · IN PREPARAZIONE</p>
         <h3>Morning<br /><em>Routine</em></h3>
         <p className="mh-first-pack-duration">7 giorni · 7 meditazioni guidate</p>
         <p>Una pratica al mattino per costruire un rituale semplice e ripetibile, senza dover cambiare tutta la tua giornata.</p>
@@ -171,75 +145,28 @@ function LeadFunnel() {
   </section>;
 }
 
-function Breath() {
-  const reduce = useReducedMotion();
-  const [running, setRunning] = useState(false);
-  const [idx, setIdx] = useState(2);
-  const [cycles, setCycles] = useState(0);
-  useEffect(() => {
-    if (!running) return;
-    setIdx(0);
-    let i = 0;
-    let timer: ReturnType<typeof setTimeout>;
-    const step = () => {
-      timer = setTimeout(() => {
-        i = (i + 1) % PHASES.length;
-        if (i === 0) setCycles(c => c + 1);
-        setIdx(i);
-        step();
-      }, PHASES[i].secs * 1000);
-    };
-    step();
-    return () => clearTimeout(timer);
-  }, [running]);
-  const phase = PHASES[idx];
-  return <section id="respiro" className="mh-breath">
-    <div className="mh-wrap mh-breath-layout">
-      <Reveal className="mh-breath-copy"><p className="mh-kicker">Una pratica semplice · 4—2—6</p><h2>Rientra<br />nel <em>ritmo.</em></h2><p>Inspira per quattro secondi, fai una pausa di due, espira per sei. Segui il cerchio, senza obiettivi. Fermati quando vuoi.</p><button onClick={() => { if (running) setIdx(2); else setCycles(0); setRunning(r => !r); }} aria-pressed={running} className="mh-breath-toggle">{running ? <><Pause size={15} /> Ferma la pratica</> : <><Play size={15} /> Inizia a respirare</>}</button><span className="mh-cycle-note" aria-live="polite">{running && cycles > 0 ? `${cycles} ${cycles === 1 ? 'ciclo completato' : 'cicli completati'}` : 'Nessun obiettivo. Fermati quando vuoi.'}</span></Reveal>
-      <div className="mh-breath-visual" aria-label={running ? `${phase.label}, ${phase.secs} secondi` : 'Pratica di respirazione 4-2-6'}>
-        {[1, .76, .53].map((scale, i) => <span key={i} className={`mh-breath-ring ring-${i}`} style={{ width: `${scale * 100}%`, height: `${scale * 100}%` }} />)}
-        <div className="mh-breath-orb" style={{ transform: reduce ? 'none' : `scale(${running ? phase.scale : .56})`, transition: reduce ? 'none' : `transform ${running ? phase.secs : 1.4}s ${idx === 1 ? 'linear' : 'ease-in-out'}` }} />
-        <div className="mh-breath-label"><b aria-live="polite">{running ? phase.label : 'Pronto'}</b>{running && <small>{phase.secs} secondi</small>}</div>
-        <div className="mh-breath-notation"><span>04</span><i /> <span>02</span><i /> <span>06</span></div>
-      </div>
-    </div>
-  </section>;
-}
-
 function GuidedPractice() {
   return <section id="pratica" className="mh-sound">
     <div className="mh-wrap">
-      <Reveal className="mh-sound-intro"><p className="mh-kicker">La pratica Mind Haven</p><h2>Una voce che guida.<br /><em>Tu che scegli il ritmo.</em></h2><p>Non proponiamo battiti binaurali: le nostre meditazioni sono guidate dalla voce e ti invitano a portare attenzione al respiro, ai pensieri e alle intenzioni.</p></Reveal>
+      <Reveal className="mh-sound-intro"><p className="mh-kicker">02 · IL METODO</p><h2>Una voce che guida.<br /><em>Tu che scegli il ritmo.</em></h2><p>La meditazione guidata ti invita a portare attenzione al respiro, ai pensieri e alle intenzioni. Quando parliamo di “riprogrammare il subconscio”, lo intendiamo come metafora per esplorare schemi e abitudini, non come promessa clinica.</p></Reveal>
       <div className="mh-waveform" aria-hidden="true">{Array.from({ length: 52 }, (_, i) => <span key={i} style={{ height: `${20 + ((i * 31) % 68)}%` }} />)}</div>
       <div className="mh-sound-topics">
         {[
-          ['01', 'Una voce ti accompagna', 'Le indicazioni guidano l’attenzione verso il respiro, il corpo o un’immagine mentale, senza imporre un risultato.'],
-          ['02', 'Noti i tuoi schemi', 'La pratica crea uno spazio per osservare pensieri e reazioni con più consapevolezza, senza giudicarti.'],
-          ['03', 'Alleni nuove abitudini', 'Ripetere una pratica può aiutarti a coltivare routine e intenzioni. “Riprogrammare” è una metafora, non una promessa clinica.'],
+          ['01', 'Segui una voce', 'Le indicazioni accompagnano l’attenzione verso il respiro, il corpo o un’immagine mentale.'],
+          ['02', 'Osservi i pensieri', 'La pratica offre uno spazio per notare schemi e reazioni con più consapevolezza, senza giudicarti.'],
+          ['03', 'Coltivi una routine', 'Ripetere la pratica può aiutarti a dedicare tempo alle tue intenzioni. Ogni esperienza è personale.'],
         ].map(([number, title, description]) => <Reveal key={number} className="mh-sound-topic"><span>{number}</span><h3>{title}</h3><p>{description}</p></Reveal>)}
       </div>
-      <Link href="/ricerca-meditazione-guidata" className="mh-sound-article">Scopri cosa dice la ricerca <ArrowUpRight size={14} /></Link>
+      <Link href="/ricerca-meditazione-guidata" className="mh-sound-article">Benefici, studi e limiti della ricerca <ArrowUpRight size={14} /></Link>
     </div>
   </section>;
 }
 
 function Guide() {
-  return <section id="guida" className="mh-guide">
-    <div className="mh-wrap mh-guide-layout">
-      <Reveal className="mh-guide-image"><img src="/images/lake.jpg" alt="Lago calmo al tramonto" loading="lazy" /><span>UNA PRATICA, NESSUN OBBLIGO</span><b>10<small>MIN</small></b></Reveal>
-      <Reveal className="mh-guide-copy" delay={.08}><p className="mh-kicker">Un primo passo, al tuo ritmo</p><h2>Dieci minuti.<br /><em>Solo tuoi.</em></h2><p>Ascolta Mind Haven sul canale che preferisci. Trovi i percorsi su YouTube, Spotify e Amazon Music.</p><PlatformLinks context="guida" variant="light" /></Reveal>
-    </div>
-  </section>;
-}
-
-function ResearchPreview() {
-  return <section id="ricerca" className="mh-blog">
-    <div className="mh-wrap mh-blog-layout">
-      <Reveal><p className="mh-kicker">Una sintesi basata sugli studi</p><h2>Meditazione guidata:<br /><em>cosa dice la ricerca.</em></h2><p className="mh-blog-note">Benefici osservati, limiti delle prove e cosa intendiamo quando parliamo di “riprogrammare il subconscio”.</p><Link href="/ricerca-meditazione-guidata" className="mh-blog-all">Leggi l’approfondimento <ArrowUpRight size={14} /></Link></Reveal>
-      <Reveal delay={.08}><Link href="/ricerca-meditazione-guidata" className="mh-article">
-        <img src="/images/moss.jpg" alt="Felci e muschio con gocce di rugiada" loading="lazy" />
-        <div><span>RICERCA · MEDITAZIONE GUIDATA</span><h3>Benefici, studi e limiti</h3><b>Leggi l’approfondimento <ArrowUpRight size={14} /></b></div>
-      </Link></Reveal>
+  return <section id="canali" className="mh-channel-strip">
+    <div className="mh-wrap mh-channel-layout">
+      <div><p className="mh-kicker">DOVE ASCOLTARE</p><h2>Mind Haven,<br /><em>anche qui.</em></h2></div>
+      <PlatformLinks context="homepage" variant="light" />
     </div>
   </section>;
 }
@@ -247,8 +174,7 @@ function ResearchPreview() {
 function Footer() {
   return <footer className="mh-footer">
     <div className="mh-wrap">
-      <Reveal><div className="mh-footer-opening"><span>IL TUO SPAZIO RESTA QUI</span><h2>Ti aspettiamo,<br /><em>quando vuoi.</em></h2></div></Reveal>
-      <div className="mh-footer-main"><div><Logo footer /><p>Meditazioni guidate e benessere,<br />in italiano.</p></div><nav aria-label="Link utili"><a href={YT} target="_blank" rel="noopener noreferrer">Canale YouTube <ArrowUpRight size={13} /></a><a href={SUB} target="_blank" rel="noopener noreferrer">Iscriviti <ArrowUpRight size={13} /></a><Link href="/ricerca-meditazione-guidata">La ricerca <ArrowUpRight size={13} /></Link><a href={ACCOUNT} target="_blank" rel="noopener noreferrer">Il mio account <ArrowUpRight size={13} /></a></nav></div>
+      <div className="mh-footer-main"><div><Logo footer /><p>Meditazioni guidate e benessere,<br />in italiano.</p></div><nav aria-label="Link utili"><Link href="/ricerca-meditazione-guidata">La ricerca <ArrowUpRight size={13} /></Link><a href={ACCOUNT} target="_blank" rel="noopener noreferrer">Il mio account <ArrowUpRight size={13} /></a></nav></div>
       <p className="mh-legal">Avvertenza: i contenuti di Mind Haven sono pratiche di benessere e non costituiscono diagnosi o trattamento medico o psicologico. Non sostituiscono il parere di un professionista della salute. Se la meditazione ti provoca disagio, interrompila e chiedi supporto. Non ascoltare alla guida.</p>
     </div>
   </footer>;
@@ -289,28 +215,11 @@ export default function Home() {
     <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[110] focus:rounded-full focus:bg-[#DAB564] focus:px-4 focus:py-3">Vai ai contenuti</a>
     <Header />
     <main id="main">
-      <Hero active={activeTheme} onSelect={setActiveTheme} />
-      <section id="percorsi" className="mh-intent-routes" aria-labelledby="mh-intent-title">
-        <div className="mh-intent-head"><div><p className="mh-kicker">Da dove vuoi cominciare?</p><h2 id="mh-intent-title">Tre spazi.<br /><em>Il tuo, adesso.</em></h2></div><p>Un punto di partenza per il momento che stai vivendo. Puoi cambiare strada quando vuoi.</p></div>
-        <div className="mh-intent-grid">
-          {[{href:'/sonno', title:'Sonno', line:'Lascia posare la giornata.', img:'/images/night.jpg', n:'01'}, {href:'/respiro', title:'Respiro e calma', line:'Fai spazio a una pausa.', img:'/images/lake.jpg', n:'02'}, {href:'/focus', title:'Concentrazione', line:'Ritrova il filo del focus.', img:'/images/moss.jpg', n:'03'}].map(item => <Link className="mh-intent-card" href={item.href} key={item.href} style={{backgroundImage:`linear-gradient(0deg,rgba(8,17,16,.82),rgba(8,17,16,.02) 78%),url(${item.img})`}}><span>{item.n} <i>·</i> IL TUO PERCORSO</span><div><h3>{item.title}</h3><p>{item.line}</p></div><ArrowUpRight size={17} /></Link>)}
-        </div>
-      </section>
-      <section id="membership" className="mh-home-membership" aria-labelledby="mh-home-membership-title">
-        <div className="mh-home-membership-copy">
-          <p className="mh-kicker">Mind Haven · pre-lancio</p>
-          <h2 id="mh-home-membership-title">Il prossimo ascolto,<br /><em>quando sarà pronto.</em></h2>
-          <p>La membership audio è in fase di pre-lancio. Nel frattempo, puoi ascoltare Mind Haven sui tuoi canali preferiti.</p>
-          <span className="mh-home-membership-note">YouTube · Spotify · Amazon Music</span>
-        </div>
-        <PlatformLinks context="homepage" />
-      </section>
-      <Pathway active={activeTheme} onSelect={setActiveTheme} />
+      <Hero />
       <LeadFunnel />
-      <Breath />
+      <Pathway active={activeTheme} onSelect={setActiveTheme} />
       <GuidedPractice />
       <Guide />
-      <ResearchPreview />
     </main>
     <Footer />
   </div>;
