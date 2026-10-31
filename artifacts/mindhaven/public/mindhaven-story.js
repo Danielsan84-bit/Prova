@@ -48,6 +48,29 @@
     #hero-form .mh-gold-stat span {
       color: #DAB564 !important;
     }
+    #benefici .grid > div:nth-child(1) > div:first-child > span:nth-child(2).mh-benefit-icon,
+    #benefici .grid > div:nth-child(2) > div:first-child > span:nth-child(2).mh-benefit-icon,
+    #benefici .grid > div:nth-child(3) > div:first-child > span:nth-child(2).mh-benefit-icon {
+      background: #07090e !important;
+      border-color: rgba(255, 174, 52, .25) !important;
+      box-shadow: 0 0 0 4px rgba(255, 174, 52, .04) !important;
+      display: grid !important;
+      place-items: center !important;
+      width: 40px !important;
+      height: 40px !important;
+      padding: 0 !important;
+    }
+    #benefici .mh-benefit-icon::before {
+      content: none !important;
+      display: none !important;
+      background: none !important;
+    }
+    #benefici .mh-benefit-icon img {
+      display: block;
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
     #chi-siamo > .mh-about-heading {
       max-width: 900px;
       margin: 0 auto 36px !important;
@@ -106,6 +129,33 @@
     return new Set(matches.map((span) => span.textContent.trim())).size === values.size;
   };
 
+  const applyBenefitIcons = () => {
+    const icons = [
+      { source: './images/benefit-heart-gold.svg', label: 'Cuore con tracciato ECG' },
+      { source: './images/benefit-brain-gold.svg', label: 'Cervello a due emisferi' },
+      { source: './images/benefit-moon-gold.svg', label: 'Luna crescente con stella' },
+    ];
+    const badges = [
+      ...document.querySelectorAll(
+        '#benefici > div:nth-child(2) > div > div:first-child > span:nth-child(2)',
+      ),
+    ];
+    if (badges.length < icons.length) return false;
+
+    icons.forEach((icon, index) => {
+      const badge = badges[index];
+      badge.classList.add('mh-benefit-icon');
+      const image = badge.querySelector('img') || document.createElement('img');
+      image.src = icon.source;
+      image.alt = '';
+      image.setAttribute('aria-hidden', 'true');
+      image.loading = 'eager';
+      image.decoding = 'async';
+      if (!image.parentElement) badge.replaceChildren(image);
+    });
+    return true;
+  };
+
   const applySectionOrder = () => {
     const benefits = document.querySelector('#benefici');
     const story = document.querySelector('#chi-siamo');
@@ -158,6 +208,7 @@
     applyStory() &&
     applyDanielePhoto() &&
     applyHeroStats() &&
+    applyBenefitIcons() &&
     applySectionOrder() &&
     applyStoryHeading() &&
     applyNavigationOrder();

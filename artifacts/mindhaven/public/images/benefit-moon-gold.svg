@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <defs>
+    <linearGradient id="goldSleep" x1="2" y1="3" x2="22" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFE79A"/>
+      <stop offset="50%" stop-color="#FFAE34"/>
+      <stop offset="100%" stop-color="#ED8F03"/>
+    </linearGradient>
+  </defs>
+  <path d="M20.5 13.05A9 9 0 1 1 10.95 3.5a7 7 0 0 0 9.55 9.55z" stroke="url(#goldSleep)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <path d="M18 4l.6 1.4L20 6l-1.4.6L18 8l-.6-1.4L16 6l1.4-.6L18 4z" fill="url(#goldSleep)"/>
+</svg>

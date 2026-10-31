@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <defs>
+    <linearGradient id="goldStress" x1="2" y1="3" x2="22" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFE79A"/>
+      <stop offset="50%" stop-color="#FFAE34"/>
+      <stop offset="100%" stop-color="#ED8F03"/>
+    </linearGradient>
+  </defs>
+  <path d="M19.5 12.572L12 20l-7.5-7.428A5 5 0 1 1 12 6.006a5 5 0 1 1 7.5 6.572" stroke="url(#goldStress)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M4 12h4l2-3 3 6 2-3h5" stroke="url(#goldStress)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
