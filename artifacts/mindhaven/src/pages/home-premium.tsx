@@ -165,7 +165,7 @@ function LeadFunnel() {
         <h3>Morning<br /><em>Routine</em></h3>
         <p className="mh-first-pack-duration">7 giorni · 7 meditazioni guidate</p>
         <p>Una pratica al mattino per costruire un rituale semplice e ripetibile, senza dover cambiare tutta la tua giornata.</p>
-        <span className="mh-first-pack-price">Prezzo in definizione</span>
+        <span className="mh-first-pack-price">€4,99 · prezzo lancio</span>
       </Reveal>
     </div>
   </section>;

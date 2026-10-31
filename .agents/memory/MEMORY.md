@@ -1,3 +1,3 @@
 - [Mind Haven brand](mindhaven-brand.md) — User-approved logo, Montserrat typography, and six-color palette for future Mind Haven design work.
-- [Mind Haven growth direction](mindhaven-growth.md) — Replit + Systeme.io funnel; the proposed first paid product is a 7-day Morning Routine, with price undecided.
+- [Mind Haven growth direction](mindhaven-growth.md) — Replit + Systeme.io funnel; the first paid product is a 7-day Morning Routine at €4.99 launch price.
 - [Mind Haven meditation positioning](mindhaven-meditation-positioning.md) — Voice-guided meditations for subconscious-pattern work; not binaural audio, with science claims framed cautiously.
