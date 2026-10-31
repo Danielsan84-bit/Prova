@@ -42,10 +42,10 @@ export default function LeadCaptureMockForm() {
             aria-describedby="mh-mock-form-note"
           />
           <button className="mh-mock-form-submit" type="submit">
-            Ricevi la meditazione <ArrowRight size={16} />
+            Ricevi la meditazione gratuita <ArrowRight size={16} />
           </button>
           <p className="mh-mock-form-note" id="mh-mock-form-note">
-            Demo visuale: i dati inseriti non vengono inviati né salvati.
+            Nessuno spam. Anteprima: i dati non vengono inviati né salvati.
           </p>
         </>
       )}

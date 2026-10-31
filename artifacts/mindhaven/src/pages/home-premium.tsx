@@ -1,25 +1,25 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Compass, Focus, Menu, Moon, Waves, X } from 'lucide-react';
-import { Link } from 'wouter';
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Focus, Menu, Moon, Waves, X, Check } from 'lucide-react';
 import PlatformLinks from '@/components/platform-links';
 import LeadCaptureMockForm from '@/components/lead-capture-mock-form';
 import { trackSignupCtaClick } from '@/lib/analytics';
+import { Link } from 'wouter';
 
-const ACCOUNT = 'https://www.mindhaven.club/my-account/';
 const LEAD_FORM_ANCHOR = '#funnel';
 const NAV = [
-  { href: '#percorso', label: 'Percorsi' },
-  { href: '#morning-routine', label: 'Morning Routine' },
-  { href: '#pratica', label: 'Il metodo' },
-  { href: '/ricerca-meditazione-guidata', label: 'La ricerca' },
+  { href: '#benefici', label: 'Benefici' },
+  { href: '#morning-routine', label: 'Il percorso' },
+  { href: '#canali', label: 'Podcast & YouTube' },
+  { href: '#filosofia', label: 'Filosofia' },
+  { href: '/chi-siamo', label: 'Chi siamo' },
+  { href: '#contatti', label: 'Contatti' },
 ];
 const THEMES = [
-  { n: '01', t: 'Focus', d: 'Meditazioni guidate per ritrovare attenzione e dedicarti allo studio o al lavoro.', img: '/images/moss.jpg', tone: 'Verde muschio', icon: Focus },
-  { n: '02', t: 'Calma', d: 'Pratiche per rallentare nei giorni pieni e ritrovare un ritmo di respiro più gentile.', img: '/images/lake.jpg', tone: 'Lago al tramonto', icon: Waves },
-  { n: '03', t: 'Sonno', d: 'Meditazioni guidate per accompagnare la sera e creare una routine di riposo più calma.', img: '/images/night.jpg', tone: 'Notte aperta', icon: Moon },
-  { n: '04', t: 'Potenziale', d: 'Spazi di ascolto e visualizzazione per tornare a chiederti dove vuoi andare.', img: '/images/hero-forest.jpg', tone: 'Crinale all’alba', icon: Compass },
+  { n: '01', t: 'Rilascio dello stress', d: 'Una pausa guidata può aiutarti a rallentare e allentare le tensioni della giornata, senza aspettarti di eliminarle subito.', icon: Waves },
+  { n: '02', t: 'Chiarezza mentale', d: 'Portare l’attenzione al momento presente può offrire spazio per riordinare pensieri e intenzioni.', icon: Focus },
+  { n: '03', t: 'Sonno profondo', d: 'Una pratica serale può favorire il rilassamento e diventare parte della tua routine prima del riposo. Ogni esperienza è personale.', icon: Moon },
 ];
 function Reveal({ children, delay = 0, className = '', id }: { children: ReactNode; delay?: number; className?: string; id?: string }) {
   const reduce = useReducedMotion();
@@ -46,7 +46,9 @@ function Header() {
   return <header className={`mh-header ${solid ? 'is-solid' : ''}`}>
     <div className="mh-header-inner">
       <Logo />
-      <nav className="mh-nav" aria-label="Principale">{NAV.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</nav>
+      <nav className="mh-nav" aria-label="Principale">{NAV.map(item => item.href === '/chi-siamo'
+        ? <Link key={item.href} href={item.href} data-testid="link-about-nav">{item.label}</Link>
+        : <a key={item.href} href={item.href}>{item.label}</a>)}</nav>
       <a href={LEAD_FORM_ANCHOR} className="mh-account" onClick={() => trackSignupCtaClick('homepage', 'homepage_header')}>Inizia gratis <ArrowRight size={14} /></a>
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild><button className="mh-menu" aria-label="Apri il menu"><Menu size={20} /></button></Dialog.Trigger>
@@ -56,7 +58,9 @@ function Header() {
             <div className="mh-mobile-head"><Logo /><Dialog.Close aria-label="Chiudi il menu" className="mh-close"><X size={19} /></Dialog.Close></div>
             <Dialog.Title className="sr-only">Menu Mind Haven</Dialog.Title>
             <Dialog.Description className="sr-only">Navigazione del sito</Dialog.Description>
-            <nav aria-label="Mobile">{NAV.map((item, i) => <a href={item.href} key={item.href} onClick={() => setOpen(false)}><small>0{i + 1}</small>{item.label}<ArrowUpRight size={17} /></a>)}</nav>
+            <nav aria-label="Mobile">{NAV.map((item, i) => item.href === '/chi-siamo'
+              ? <Link href={item.href} key={item.href} onClick={() => setOpen(false)} data-testid="link-about-mobile"><small>0{i + 1}</small>{item.label}<ArrowUpRight size={17} /></Link>
+              : <a href={item.href} key={item.href} onClick={() => setOpen(false)}><small>0{i + 1}</small>{item.label}<ArrowUpRight size={17} /></a>)}</nav>
             <a href={LEAD_FORM_ANCHOR} className="mh-mobile-account" onClick={() => { trackSignupCtaClick('homepage', 'homepage_mobile_menu'); setOpen(false); }}>Ricevi la meditazione gratuita <ArrowRight size={15} /></a>
           </Dialog.Content>
         </Dialog.Portal>
@@ -71,85 +75,66 @@ function Hero() {
     <div className="mh-hero-inner">
       <Reveal className="mh-hero-copy">
         <p className="mh-eyebrow"><span /> Change begins within</p>
-        <h1>Meditazioni guidate,<br />un momento alla volta.</h1>
-        <p className="mh-hero-lede">Una voce ti accompagna a esplorare i tuoi schemi e coltivare nuove abitudini. Meditazioni guidate in italiano.</p>
+        <h1>Il tuo rifugio mentale<br />quotidiano,<br /><em>a portata di cuffie.</em></h1>
+        <p className="mh-hero-lede">Ricevi una meditazione guidata in italiano. Una voce ti accompagna a fare spazio alla calma e alla concentrazione, pochi minuti al giorno.</p>
         <div className="mh-hero-links">
-          <a href={LEAD_FORM_ANCHOR} className="mh-primary-link" onClick={() => trackSignupCtaClick('homepage', 'homepage_hero')}>Ricevi la meditazione gratuita <ArrowRight size={16} /></a>
-          <a href="#pratica" className="mh-secondary-link">Scopri il metodo <ArrowDownRight size={15} /></a>
+          <a href={LEAD_FORM_ANCHOR} className="mh-primary-link" onClick={() => trackSignupCtaClick('homepage', 'homepage_hero')}>Inizia Gratis <ArrowRight size={16} /></a>
+          <a href="#benefici" className="mh-secondary-link">Scopri i benefici <ArrowDownRight size={15} /></a>
         </div>
         <div className="mh-hero-foot"><span className="mh-foot-mark">01</span><span>Una pratica alla volta · senza fretta</span></div>
       </Reveal>
 
-      <motion.div className="mh-hero-visual" initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .15 }}>
-        <img src="/images/hero-forest.jpg" alt="Luce del mattino tra gli alberi" fetchPriority="high" />
-        <div className="mh-hero-visual-shade" />
-        <div className="mh-hero-visual-caption"><span>MIND HAVEN · PRATICA GUIDATA</span><strong>Change begins within</strong></div>
-      </motion.div>
+      <motion.aside className="mh-hero-side" initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8, delay: .15 }}>
+        <div id="funnel" className="mh-hero-form">
+          <LeadCaptureMockForm />
+        </div>
+        <div className="mh-hero-program" id="morning-routine">
+          <img src="/images/hero-forest.jpg" alt="Luce del mattino tra gli alberi" />
+          <div className="mh-hero-program-copy">
+            <p className="mh-first-pack-label">02 · OFFERTA NEWSLETTER</p>
+            <h2>Morning <em>Routine</em></h2>
+            <p className="mh-first-pack-duration">7 giorni · 7 meditazioni guidate</p>
+            <p>Un rituale semplice per iniziare la giornata con più presenza.</p>
+            <div className="mh-first-pack-price" aria-label="Prezzo speciale: 4,99 euro invece di 9,99">
+              <del>€9,99</del><strong>€4,99</strong>
+            </div>
+            <p className="mh-first-pack-offer">Per chi si iscrive ora alla newsletter e acquista subito</p>
+          </div>
+        </div>
+      </motion.aside>
     </div>
-    <div className="mh-hero-bottomline"><span>MEDITAZIONE GUIDATA · CONSAPEVOLEZZA · RIPOSO</span><a href="#funnel">INIZIA CON L’AUDIO GRATUITO <ArrowDownRight size={13} /></a></div>
+    <div className="mh-hero-bottomline"><span>MEDITAZIONE GUIDATA · CONSAPEVOLEZZA · RIPOSO</span><a href="#funnel">RICEVI LA MEDITAZIONE GRATUITA <ArrowDownRight size={13} /></a></div>
   </section>;
 }
 
-function Pathway({ active, onSelect }: { active: number; onSelect: (index: number) => void }) {
-  const theme = THEMES[active];
-  return <section id="percorso" className="mh-pathway">
+function Benefits() {
+  return <section id="benefici" className="mh-pathway">
     <div className="mh-wrap">
       <Reveal className="mh-path-heading">
-        <div><p className="mh-kicker">Trova il tuo punto di partenza</p><h2>Quattro modi<br />di <em>esserci.</em></h2></div>
-        <p>Non c’è un ordine giusto. Scegli un tema e prenditi il tempo che hai.</p>
+        <div><p className="mh-kicker">Piccoli spazi, ogni giorno</p><h2>Un momento per<br /><em>tornare a te.</em></h2></div>
+        <p>Ogni esperienza è personale. La pratica non promette risultati: apre uno spazio da abitare con curiosità.</p>
       </Reveal>
-      <div className="mh-path-layout">
-        <div className="mh-path-list" role="tablist" aria-label="Quattro percorsi">
-          {THEMES.map((item, i) => {
-            const Icon = item.icon;
-            return <button key={item.t} id={`path-tab-${i}`} role="tab" aria-selected={active === i} aria-controls="path-panel" onClick={() => onSelect(i)} className={`mh-path-option ${active === i ? 'active' : ''}`}>
-              <span className="mh-path-index">{item.n}</span><span className="mh-path-icon"><Icon size={17} strokeWidth={1.5} /></span>
-              <span className="mh-path-title">{item.t}</span><ArrowUpRight className="mh-path-arrow" size={17} />
-            </button>;
-          })}
-          <p className="mh-path-footnote">Puoi cambiare strada in qualsiasi momento.</p>
-        </div>
-        <div className="mh-path-card" id="path-panel" role="tabpanel" aria-labelledby={`path-tab-${active}`}>
-          {THEMES.map((item, i) => <img key={item.t} src={item.img} alt={i === active ? `Paesaggio: ${item.tone}` : ''} aria-hidden={i !== active} className={active === i ? 'active' : ''} loading="lazy" />)}
-          <div className="mh-path-overlay" />
-          <div className="mh-path-card-meta"><span>PERCORSO {theme.n}</span><span>{theme.tone}</span></div>
-          <div className="mh-path-card-copy"><p>{theme.t}</p><h3>{theme.d}</h3><a href="#funnel">Ricevi una pratica gratuita <ArrowRight size={15} /></a></div>
-          <div className="mh-path-card-marker">MH <i>·</i> {theme.n}</div>
-        </div>
+      <div className="mh-benefit-grid">
+        {THEMES.map(({ n, t, d, icon: Icon }, i) => <Reveal key={n} delay={i * .07} className="mh-benefit-card">
+          <div className="mh-benefit-top"><span>{n}</span><Icon size={20} strokeWidth={1.4} aria-hidden="true" /></div>
+          <h3>{t}</h3><p>{d}</p>
+        </Reveal>)}
       </div>
-    </div>
-  </section>;
-}
-
-function LeadFunnel() {
-  return <section id="funnel" className="mh-lead-funnel">
-    <div className="mh-wrap mh-lead-layout">
-      <Reveal className="mh-lead-copy">
-        <p className="mh-kicker">01 · INIZIA GRATIS</p>
-        <h2>Un risveglio più<br /><em>presente.</em></h2>
-        <p>Ricevi via email una meditazione guidata in formato MP3 per la morning routine, con una voce che ti accompagna.</p>
-        <ul>
-          <li>Una pratica mattutina guidata</li>
-          <li>Da ascoltare al tuo ritmo</li>
-          <li>Iscrizione gratuita, senza impegno</li>
-        </ul>
-        <LeadCaptureMockForm />
-      </Reveal>
-      <Reveal delay={.08} className="mh-first-pack" id="morning-routine">
-        <p className="mh-first-pack-label">02 · IL PASSO SUCCESSIVO · IN PREPARAZIONE</p>
-        <h3>Morning<br /><em>Routine</em></h3>
-        <p className="mh-first-pack-duration">7 giorni · 7 meditazioni guidate</p>
-        <p>Una pratica al mattino per costruire un rituale semplice e ripetibile, senza dover cambiare tutta la tua giornata.</p>
-        <span className="mh-first-pack-price">€4,99 · prezzo lancio</span>
+      <Reveal className="mh-benefits-guide-row">
+        <Link href="/benefici.html" className="mh-benefits-guide" data-testid="link-benefits-guide">
+          <span aria-hidden="true">📚</span>
+          <span>Scopri i benefici dalle origini millenarie agli studi neuroscientifici moderni</span>
+          <ArrowUpRight size={16} aria-hidden="true" />
+        </Link>
       </Reveal>
     </div>
   </section>;
 }
 
 function GuidedPractice() {
-  return <section id="pratica" className="mh-sound">
+  return <section id="filosofia" className="mh-sound">
     <div className="mh-wrap">
-      <Reveal className="mh-sound-intro"><p className="mh-kicker">02 · IL METODO</p><h2>Una voce che guida.<br /><em>Tu che scegli il ritmo.</em></h2><p>La meditazione guidata ti invita a portare attenzione al respiro, ai pensieri e alle intenzioni. Quando parliamo di “riprogrammare il subconscio”, lo intendiamo come metafora per esplorare schemi e abitudini, non come promessa clinica.</p></Reveal>
+      <Reveal className="mh-sound-intro"><p className="mh-kicker">LA FILOSOFIA</p><h2>Una voce che guida.<br /><em>Tu che scegli il ritmo.</em></h2><p>Crediamo nell’equilibrio di un gesto semplice: ascoltare, respirare, osservare. Voce e paesaggio sonoro sono curati per accompagnare la pratica e lasciarti spazio, senza sovrastarla.</p></Reveal>
       <div className="mh-waveform" aria-hidden="true">{Array.from({ length: 52 }, (_, i) => <span key={i} style={{ height: `${20 + ((i * 31) % 68)}%` }} />)}</div>
       <div className="mh-sound-topics">
         {[
@@ -158,7 +143,7 @@ function GuidedPractice() {
           ['03', 'Coltivi una routine', 'Ripetere la pratica può aiutarti a dedicare tempo alle tue intenzioni. Ogni esperienza è personale.'],
         ].map(([number, title, description]) => <Reveal key={number} className="mh-sound-topic"><span>{number}</span><h3>{title}</h3><p>{description}</p></Reveal>)}
       </div>
-      <Link href="/ricerca-meditazione-guidata" className="mh-sound-article">Benefici, studi e limiti della ricerca <ArrowUpRight size={14} /></Link>
+      <Link href="/ricerca-meditazione-guidata" className="mh-sound-article">Leggi studi, benefici e limiti <ArrowUpRight size={14} /></Link>
     </div>
   </section>;
 }
@@ -166,8 +151,34 @@ function GuidedPractice() {
 function Guide() {
   return <section id="canali" className="mh-channel-strip">
     <div className="mh-wrap mh-channel-layout">
-      <div><p className="mh-kicker">DOVE ASCOLTARE</p><h2>Mind Haven,<br /><em>anche qui.</em></h2></div>
+      <div><p className="mh-kicker">PODCAST &amp; YOUTUBE</p><h2>Scegli dove<br /><em>ascoltare.</em></h2></div>
       <PlatformLinks context="homepage" variant="light" />
+    </div>
+  </section>;
+}
+
+function Contact() {
+  const [submitted, setSubmitted] = useState(false);
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    event.currentTarget.reset();
+    setSubmitted(true);
+  }
+  return <section id="contatti" className="mh-contact">
+    <div className="mh-wrap mh-contact-layout">
+      <Reveal className="mh-contact-copy"><p className="mh-kicker">CONTATTI</p><h2>Una parola,<br /><em>con calma.</em></h2><p>Per domande o semplicemente per salutarci, puoi lasciare un messaggio qui.</p></Reveal>
+      <Reveal delay={.08}>
+        <form className="mh-contact-form" onSubmit={handleSubmit} data-testid="mock-contact-form">
+          {submitted ? <div className="mh-contact-success" role="status" aria-live="polite"><span><Check size={17} /></span><h3>Messaggio simulato.</h3><p>Questa è un’anteprima: il messaggio non è stato inviato né salvato.</p><button type="button" onClick={() => setSubmitted(false)}>Scrivi un altro messaggio</button></div> : <>
+            <p className="mh-contact-demo">ANTEPRIMA · MODULO DIMOSTRATIVO</p>
+            <label htmlFor="mh-contact-name">Nome</label><input id="mh-contact-name" name="name" autoComplete="name" required data-testid="input-contact-name" />
+            <label htmlFor="mh-contact-email">Email</label><input id="mh-contact-email" name="email" type="email" autoComplete="email" required data-testid="input-contact-email" />
+            <label htmlFor="mh-contact-message">Messaggio</label><textarea id="mh-contact-message" name="message" rows={4} required data-testid="input-contact-message" />
+            <button type="submit" data-testid="button-contact-submit">Simula l’invio <ArrowRight size={15} /></button>
+            <p className="mh-contact-note">Il modulo è solo dimostrativo. I dati non vengono inviati né conservati.</p>
+          </>}
+        </form>
+      </Reveal>
     </div>
   </section>;
 }
@@ -175,14 +186,15 @@ function Guide() {
 function Footer() {
   return <footer className="mh-footer">
     <div className="mh-wrap">
-      <div className="mh-footer-main"><div><Logo footer /><p>Meditazioni guidate e benessere,<br />in italiano.</p></div><nav aria-label="Link utili"><Link href="/ricerca-meditazione-guidata">La ricerca <ArrowUpRight size={13} /></Link><a href={ACCOUNT} target="_blank" rel="noopener noreferrer">Il mio account <ArrowUpRight size={13} /></a></nav></div>
+      <div className="mh-footer-main"><div><Logo footer /><p>Meditazioni guidate e benessere,<br />in italiano.</p></div><nav aria-label="Link utili"><Link href="/chi-siamo">Chi siamo</Link><Link href="/ricerca-meditazione-guidata">La ricerca <ArrowUpRight size={13} /></Link><a href="#benefici">Benefici <ArrowUpRight size={13} /></a><a href="#privacy-policy">Privacy Policy · in preparazione</a><a href="#cookie-policy">Cookie Policy · in preparazione</a></nav></div>
       <p className="mh-legal">Avvertenza: i contenuti di Mind Haven sono pratiche di benessere e non costituiscono diagnosi o trattamento medico o psicologico. Non sostituiscono il parere di un professionista della salute. Se la meditazione ti provoca disagio, interrompila e chiedi supporto. Non ascoltare alla guida.</p>
+      <p className="mh-policy-placeholder"><span id="privacy-policy">Informativa Privacy in preparazione.</span><span id="cookie-policy">Informativa Cookie in preparazione.</span></p>
+      <p className="mh-copyright">© {new Date().getFullYear()} Mind Haven · Change begins within</p>
     </div>
   </footer>;
 }
 
 export default function Home() {
-  const [activeTheme, setActiveTheme] = useState(0);
   useEffect(() => { document.documentElement.lang = 'it'; }, []);
   return <div className="grain mh-premium">
     <style>{`
@@ -211,16 +223,71 @@ export default function Home() {
       .mh-premium .mh-path-option:not(.active){color:#566773}
        .mh-intent-routes{padding:84px max(40px,calc((100% - 1200px)/2));background:#DCEEF1}.mh-intent-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:30px}.mh-intent-head h2{margin:13px 0 0;font-size:clamp(42px,5vw,62px);font-weight:500;line-height:.98;letter-spacing:-.07em}.mh-intent-head h2 em{font-weight:400;color:#0D6F7A}.mh-intent-head>p{max-width:290px;margin:0 0 5px;color:#526372;font-size:11px;line-height:1.8}.mh-intent-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.mh-intent-card{min-height:280px;position:relative;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;padding:19px;border-radius:12px;background-position:center;background-size:cover;color:#fff;text-decoration:none;transition:transform .25s}.mh-intent-card:hover{transform:translateY(-4px)}.mh-intent-card>span{font-size:8px;letter-spacing:.15em;color:rgba(255,255,255,.8)}.mh-intent-card>span i{color:var(--gold);font-style:normal}.mh-intent-card>div h3{margin:0 0 7px;font-size:25px;font-weight:500;letter-spacing:-.05em}.mh-intent-card>div p{margin:0;color:rgba(255,255,255,.75);font-size:10px}.mh-intent-card>svg{position:absolute;right:19px;bottom:19px;color:var(--gold)}
        .mh-home-membership{display:grid;grid-template-columns:.85fr 1.15fr;align-items:center;gap:70px;padding:92px max(40px,calc((100% - 1160px)/2));background:var(--midnight);color:var(--ice)}.mh-home-membership-copy .mh-kicker{color:var(--gold)}.mh-home-membership-copy h2{margin:16px 0;font-size:clamp(43px,5vw,63px);font-weight:500;letter-spacing:-.075em;line-height:.99}.mh-home-membership-copy h2 em{color:var(--cyan);font-weight:400}.mh-home-membership-copy>p:not(.mh-kicker){max-width:420px;color:rgba(236,247,249,.66);font-size:11px;line-height:1.9}.mh-home-membership-note{display:block;margin-top:20px;color:rgba(236,247,249,.45);font-size:8px;letter-spacing:.07em}.mh-home-membership .mh-platform-links{max-width:620px}
+       .mh-premium #benefici,.mh-premium #contatti,.mh-premium #canali,.mh-premium #filosofia{scroll-margin-top:92px}
+       .mh-hero h1 em{color:var(--cyan);font-weight:400}
+       .mh-benefit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:45px}
+       .mh-benefit-card{min-height:260px;padding:25px 24px 29px;border:1px solid rgba(22,39,67,.15);border-radius:11px;background:rgba(255,255,255,.52);transition:transform .25s,border-color .25s,background .25s}
+       .mh-benefit-card:hover{transform:translateY(-3px);border-color:rgba(65,186,205,.65);background:rgba(255,255,255,.84)}
+       .mh-benefit-top{display:flex;align-items:center;justify-content:space-between;color:#0D6F7A}
+       .mh-benefit-top span{font:10px ui-monospace,monospace}
+       .mh-benefit-card h3{max-width:230px;margin:54px 0 11px;font-size:23px;font-weight:500;letter-spacing:-.055em;line-height:1.08}
+       .mh-benefit-card p{max-width:290px;margin:0;color:#526372;font-size:10px;line-height:1.85}
+       .mh-contact{padding:98px 0;background:#DCEEF1}
+       .mh-contact-layout{display:grid;grid-template-columns:.8fr 1.2fr;align-items:start;gap:clamp(40px,8vw,110px)}
+       .mh-contact-copy h2{margin:16px 0;font-size:clamp(48px,6vw,74px);font-weight:500;letter-spacing:-.075em;line-height:.97}
+       .mh-contact-copy h2 em{color:#0D6F7A;font-weight:400}
+       .mh-contact-copy>p:last-child{max-width:330px;color:#526372;font-size:12px;line-height:1.85}
+       .mh-contact-form{display:grid;gap:10px;padding:28px;border:1px solid rgba(22,39,67,.15);border-radius:12px;background:rgba(255,255,255,.7)}
+       .mh-contact-demo{margin:0 0 8px;color:#0D6F7A;font-size:8px;font-weight:600;letter-spacing:.15em}
+       .mh-contact-form label{margin-top:5px;color:#162743;font-size:9px;font-weight:600}
+       .mh-contact-form input,.mh-contact-form textarea{width:100%;padding:12px 13px;border:1px solid rgba(22,39,67,.19);border-radius:7px;background:#fff;color:#081110;font:11px 'Montserrat',system-ui,sans-serif;resize:vertical}
+       .mh-contact-form input:focus,.mh-contact-form textarea:focus{outline:2px solid rgba(65,186,205,.65);outline-offset:1px}
+       .mh-contact-form>button{display:flex;align-items:center;justify-content:space-between;min-height:47px;margin-top:5px;padding:0 16px;border:0;border-radius:7px;background:#081110;color:#ECF7F9;font:600 10px 'Montserrat',system-ui,sans-serif;cursor:pointer;transition:background .2s,transform .2s}
+       .mh-contact-form>button:hover{transform:translateY(-1px);background:#162743}
+       .mh-contact-note{margin:2px 0 0;color:#65747c;font-size:8px;line-height:1.6}
+       .mh-contact-success{display:grid;justify-items:start;align-content:center;gap:12px;min-height:360px}
+       .mh-contact-success>span{display:grid;width:38px;height:38px;place-items:center;border:1px solid rgba(13,111,122,.3);border-radius:50%;color:#0D6F7A}
+       .mh-contact-success h3{margin:0;font-size:25px;font-weight:500}
+       .mh-contact-success p{max-width:360px;margin:0;color:#526372;font-size:10px;line-height:1.8}
+       .mh-contact-success button{margin-top:5px;padding:0 0 5px;border:0;border-bottom:1px solid rgba(22,39,67,.3);background:none;color:#162743;font:600 9px 'Montserrat',system-ui,sans-serif;cursor:pointer}
+       .mh-footer-main nav span{color:rgba(236,247,249,.42);font-size:9px}
+       .mh-copyright{margin:20px 0 0;padding-top:15px;border-top:1px solid rgba(236,247,249,.1);color:rgba(236,247,249,.4);font-size:8px;letter-spacing:.05em}
+       .mh-benefits-guide-row{display:flex;justify-content:center;margin-top:28px}
+       .mh-benefits-guide{display:flex;align-items:center;gap:12px;max-width:780px;padding:15px 20px;border:1px solid rgba(22,39,67,.22);border-radius:999px;background:var(--navy);color:var(--ice);font-size:10px;font-weight:500;line-height:1.5;text-decoration:none;transition:transform .2s,border-color .2s}
+       .mh-benefits-guide:hover{transform:translateY(-2px);border-color:var(--cyan)}
+       .mh-benefits-guide>span:first-child{font-size:17px}
+       .mh-benefits-guide>span:nth-child(2){flex:1}
+       .mh-benefits-guide>svg{flex:none;color:var(--cyan)}
+       .mh-hero-inner{min-height:0;gap:clamp(32px,5vw,70px);padding:38px 0 64px}
+       .mh-hero h1{font-size:clamp(48px,5.3vw,76px);line-height:.98}
+       .mh-hero-side{display:grid;align-content:center;gap:12px;min-width:0}
+       .mh-hero-form .mh-mock-form{width:100%;max-width:100%}
+       .mh-hero-program{display:grid;grid-template-columns:140px minmax(0,1fr);min-height:154px;overflow:hidden;border:1px solid rgba(236,247,249,.17);border-radius:13px;background:linear-gradient(145deg,rgba(22,39,67,.72),rgba(22,39,67,.28));color:var(--ice)}
+       .mh-hero-program>img{width:100%;height:100%;min-height:154px;object-fit:cover}
+       .mh-hero-program-copy{align-self:center;padding:15px 17px}
+       .mh-hero-program-copy .mh-first-pack-label{margin:0;color:var(--gold);font-size:8px;line-height:1.5}
+       .mh-hero-program-copy h2{margin:9px 0 5px;font-size:clamp(22px,2.4vw,30px);font-weight:500;letter-spacing:-.06em;line-height:1}
+       .mh-hero-program-copy h2 em{color:var(--cyan);font-weight:400}
+       .mh-hero-program-copy .mh-first-pack-duration{margin:0 0 6px;color:var(--ice);font-size:9px;font-weight:600}
+       .mh-hero-program-copy>p:not(.mh-first-pack-duration){margin:0;color:rgba(236,247,249,.64);font-size:8px;line-height:1.55}
+       .mh-first-pack-price{display:flex;align-items:baseline;gap:8px;margin-top:8px;line-height:1}
+       .mh-first-pack-price del{color:rgba(236,247,249,.52);font-size:8px;letter-spacing:0}
+       .mh-first-pack-price strong{color:var(--gold);font-size:13px;font-weight:600;letter-spacing:0}
+       .mh-hero-program-copy>p.mh-first-pack-offer{margin:4px 0 0;color:rgba(236,247,249,.72);font-size:8px;line-height:1.5;letter-spacing:0;text-transform:none}
+       .mh-policy-placeholder{display:flex;flex-wrap:wrap;gap:16px;margin:16px 0 0;color:rgba(236,247,249,.38);font-size:8px}
+       @media(max-width:760px){.mh-benefit-grid{grid-template-columns:1fr;gap:10px;margin-top:30px}.mh-benefit-card{min-height:0;padding:21px}.mh-benefit-card h3{margin:30px 0 8px}.mh-contact{padding:72px 0}.mh-contact-layout{grid-template-columns:1fr;gap:22px}.mh-contact-copy h2{font-size:54px}.mh-contact-form{padding:21px}.mh-contact-success{min-height:270px}.mh-footer-main nav{grid-template-columns:1fr 1fr;gap:14px}}
        @media(max-width:760px){.mh-intent-routes{padding:68px 20px}.mh-intent-head{display:block}.mh-intent-head>p{margin-top:16px}.mh-intent-grid{grid-template-columns:1fr;gap:10px}.mh-intent-card{min-height:210px}.mh-home-membership{grid-template-columns:1fr;gap:30px;padding:72px 20px}.mh-home-membership-copy h2{font-size:51px}.mh-home-membership .mh-platform-links{width:100%}.mh-platform-links{grid-template-columns:1fr}}
+       @media(max-width:760px){.mh-hero h1{font-size:clamp(42px,11vw,58px);line-height:.98;margin:24px 0 16px}.mh-hero-inner{padding:40px 0 42px}.mh-hero-program{grid-template-columns:104px minmax(0,1fr)}.mh-hero-program-copy{padding:13px}.mh-hero-program-copy h2{font-size:22px}.mh-hero-program-copy>p.mh-first-pack-offer{font-size:8px}.mh-policy-placeholder{flex-direction:column;gap:6px}}
+       @media(max-width:760px){.mh-benefits-guide{width:100%;align-items:flex-start;border-radius:14px;padding:14px}.mh-benefits-guide>span:first-child{font-size:15px}}
     `}</style>
     <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[110] focus:rounded-full focus:bg-[#DAB564] focus:px-4 focus:py-3">Vai ai contenuti</a>
     <Header />
     <main id="main">
       <Hero />
-      <LeadFunnel />
-      <Pathway active={activeTheme} onSelect={setActiveTheme} />
+      <Benefits />
       <GuidedPractice />
       <Guide />
+      <Contact />
     </main>
     <Footer />
   </div>;

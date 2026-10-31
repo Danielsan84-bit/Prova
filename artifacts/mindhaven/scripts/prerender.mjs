@@ -46,13 +46,20 @@ const pages = [
     description:
       "Una guida basata su studi e fonti scientifiche sui benefici possibili della meditazione guidata, sui limiti delle prove e sul significato di “riprogrammare il subconscio”.",
   },
+  {
+    path: "/benefici.html",
+    title: "I Benefici della Meditazione: Dalle Origini alle Neuroscienze | Mind Haven",
+    description:
+      "Dalle pratiche millenarie alle neuroscienze: cosa suggeriscono gli studi sui possibili effetti della meditazione guidata e cosa resta da dimostrare.",
+  },
 ];
 
 const escapeAttribute = (value) =>
   value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
 
 const buildUrl = (route) => {
-  const routePath = route === "/" ? "/" : `${route}/`;
+  const routePath =
+    route === "/" ? "/" : route.endsWith(".html") ? route : `${route}/`;
   return publicOrigin ? `${publicOrigin}${basePath}${routePath}` : "";
 };
 
@@ -69,10 +76,11 @@ const vite = await createServer({
 });
 
 try {
-  const [{ default: Home }, { default: Intent }, { default: Evidence }, { Router }] = await Promise.all([
+  const [{ default: Home }, { default: Intent }, { default: Evidence }, { default: BenefitsArticle }, { Router }] = await Promise.all([
     vite.ssrLoadModule("/src/pages/home.tsx"),
     vite.ssrLoadModule("/src/pages/intent.tsx"),
     vite.ssrLoadModule("/src/pages/evidence.tsx"),
+    vite.ssrLoadModule("/src/pages/benefits.tsx"),
     import("wouter"),
   ]);
   const template = await readFile(path.join(outputRoot, "index.html"), "utf8");
@@ -85,6 +93,8 @@ try {
         ? React.createElement(Home)
         : page.path === "/ricerca-meditazione-guidata"
           ? React.createElement(Evidence)
+          : page.path === "/benefici.html"
+            ? React.createElement(BenefitsArticle)
         : React.createElement(Intent);
     const app = React.createElement(
       Router,
@@ -157,7 +167,9 @@ try {
 
     const relativePage = page.path === "/" ? "" : page.path.replace(/^\//, "");
     const destination = relativePage
-      ? path.join(outputRoot, relativePage, "index.html")
+      ? page.path.endsWith(".html")
+        ? path.join(outputRoot, relativePage)
+        : path.join(outputRoot, relativePage, "index.html")
       : path.join(outputRoot, "index.html");
     await mkdir(path.dirname(destination), { recursive: true });
     await writeFile(destination, html);
