@@ -4,11 +4,11 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowDownRight, ArrowRight, ArrowUpRight, Compass, Focus, Menu, Moon, Waves, X } from 'lucide-react';
 import { Link } from 'wouter';
 import PlatformLinks from '@/components/platform-links';
-import SystemeEmbedMount from '@/components/systeme-embed-mount';
+import LeadCaptureMockForm from '@/components/lead-capture-mock-form';
 import { trackSignupCtaClick } from '@/lib/analytics';
 
 const ACCOUNT = 'https://www.mindhaven.club/my-account/';
-const FREE_MEDITATION = 'https://mindhavenita.systeme.io/welcome?utm_source=mindhaven&utm_medium=website&utm_campaign=free_meditation&utm_content=homepage_funnel';
+const LEAD_FORM_ANCHOR = '#funnel';
 const NAV = [
   { href: '#percorso', label: 'Percorsi' },
   { href: '#morning-routine', label: 'Morning Routine' },
@@ -47,7 +47,7 @@ function Header() {
     <div className="mh-header-inner">
       <Logo />
       <nav className="mh-nav" aria-label="Principale">{NAV.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</nav>
-      <a href={FREE_MEDITATION} className="mh-account" onClick={() => trackSignupCtaClick('homepage', 'homepage_header')}>Inizia gratis <ArrowRight size={14} /></a>
+      <a href={LEAD_FORM_ANCHOR} className="mh-account" onClick={() => trackSignupCtaClick('homepage', 'homepage_header')}>Inizia gratis <ArrowRight size={14} /></a>
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild><button className="mh-menu" aria-label="Apri il menu"><Menu size={20} /></button></Dialog.Trigger>
         <Dialog.Portal>
@@ -57,7 +57,7 @@ function Header() {
             <Dialog.Title className="sr-only">Menu Mind Haven</Dialog.Title>
             <Dialog.Description className="sr-only">Navigazione del sito</Dialog.Description>
             <nav aria-label="Mobile">{NAV.map((item, i) => <a href={item.href} key={item.href} onClick={() => setOpen(false)}><small>0{i + 1}</small>{item.label}<ArrowUpRight size={17} /></a>)}</nav>
-            <a href={FREE_MEDITATION} className="mh-mobile-account" onClick={() => { trackSignupCtaClick('homepage', 'homepage_mobile_menu'); setOpen(false); }}>Ricevi la meditazione gratuita <ArrowRight size={15} /></a>
+            <a href={LEAD_FORM_ANCHOR} className="mh-mobile-account" onClick={() => { trackSignupCtaClick('homepage', 'homepage_mobile_menu'); setOpen(false); }}>Ricevi la meditazione gratuita <ArrowRight size={15} /></a>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
@@ -74,7 +74,7 @@ function Hero() {
         <h1>Meditazioni guidate,<br />un momento alla volta.</h1>
         <p className="mh-hero-lede">Una voce ti accompagna a esplorare i tuoi schemi e coltivare nuove abitudini. Meditazioni guidate in italiano, non suoni binaurali.</p>
         <div className="mh-hero-links">
-          <a href={FREE_MEDITATION} className="mh-primary-link" onClick={() => trackSignupCtaClick('homepage', 'homepage_hero')}>Ricevi la meditazione gratuita <ArrowRight size={16} /></a>
+          <a href={LEAD_FORM_ANCHOR} className="mh-primary-link" onClick={() => trackSignupCtaClick('homepage', 'homepage_hero')}>Ricevi la meditazione gratuita <ArrowRight size={16} /></a>
           <a href="#pratica" className="mh-secondary-link">Scopri il metodo <ArrowDownRight size={15} /></a>
         </div>
         <div className="mh-hero-foot"><span className="mh-foot-mark">01</span><span>Una pratica alla volta · senza fretta</span></div>
@@ -133,8 +133,7 @@ function LeadFunnel() {
           <li>Da ascoltare al tuo ritmo</li>
           <li>Iscrizione gratuita, senza impegno</li>
         </ul>
-        <a href={FREE_MEDITATION} className="mh-lead-cta" data-testid="link-free-morning-meditation" onClick={() => trackSignupCtaClick('homepage', 'homepage_funnel')}>Ricevi la meditazione gratuita <ArrowRight size={16} /></a>
-        <span className="mh-lead-note">Lascia la tua email nel modulo Systeme.io per ricevere l’audio.</span>
+        <LeadCaptureMockForm />
       </Reveal>
       <Reveal delay={.08} className="mh-first-pack" id="morning-routine">
         <p className="mh-first-pack-label">02 · IL PASSO SUCCESSIVO · IN PREPARAZIONE</p>
@@ -169,9 +168,6 @@ function Guide() {
     <div className="mh-wrap mh-channel-layout">
       <div><p className="mh-kicker">DOVE ASCOLTARE</p><h2>Mind Haven,<br /><em>anche qui.</em></h2></div>
       <PlatformLinks context="homepage" variant="light" />
-    </div>
-    <div className="mh-channel-signup">
-      <SystemeEmbedMount context="guida" position="guide_section" variant="home" />
     </div>
   </section>;
 }
