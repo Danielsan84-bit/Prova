@@ -151,6 +151,16 @@ body { font-family: var(--font-sans); background: hsl(var(--background)); color:
 .ih-membership .ih-label { color: var(--mh-gold); }
 .ih-membership h2 { font-size: clamp(43px,5vw,63px); }
 .ih-membership-heading>p:last-child { max-width: 430px; margin: 20px 0 0; color: rgba(236,247,249,.65); font-size: 11px; line-height: 1.9; }
+.ih-membership-actions { display: grid; gap: 18px; }
+.ih-embed { padding: 25px; border: 1px solid rgba(236,247,249,.2); border-radius: 12px; background: rgba(22,39,67,.54); }
+.ih-embed-status { display: flex; align-items: center; gap: 8px; color: var(--mh-gold); font-size: 8px; letter-spacing: .15em; text-transform: uppercase; }
+.ih-embed-status>span { width: 6px; height: 6px; border-radius: 50%; background: var(--mh-gold); }
+.ih-embed h3 { margin: 18px 0 10px; font-size: 22px; font-weight: 500; letter-spacing: -.04em; }
+.ih-embed>p { max-width: 470px; margin: 0; color: rgba(236,247,249,.63); font-size: 10px; line-height: 1.85; }
+.ih-embed-note { margin: 14px 0 0 !important; color: rgba(236,247,249,.5) !important; font-size: 8px !important; line-height: 1.7 !important; }
+.ih-embed .ih-button { margin-top: 20px; }
+.mh-channel-signup { width: min(1200px,calc(100% - 80px)); margin: 24px auto 0; }
+.mh-channel-signup .ih-embed { max-width: 620px; background: var(--mh-midnight); color: var(--mh-ice); }
 .mh-platform-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .mh-platform-links a { display: flex; min-height: 56px; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 16px; border: 1px solid rgba(236,247,249,.2); border-radius: 8px; background: rgba(22,39,67,.54); color: #ECF7F9; font-size: 10px; font-weight: 600; text-decoration: none; transition: transform .2s, border-color .2s, color .2s; }
 .mh-platform-links a:hover { transform: translateY(-2px); border-color: #41BACD; color: #41BACD; }
@@ -278,6 +288,8 @@ body { font-family: var(--font-sans); background: hsl(var(--background)); color:
   .ih-reading p { margin: 0; }
   .ih-membership { grid-template-columns: 1fr; gap: 30px; padding: 72px 25px; }
   .ih-membership h2 { font-size: 51px; }
+  .ih-embed { padding: 21px; }
+  .mh-channel-signup { width: calc(100% - 40px); }
   .ih-more { gap: 25px; padding: 60px 25px; }
   .ih-more-links { width: 100%; flex-direction: column; }
   .ih-more-links a { width: 100%; }

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Headphones, Moon, Focus, Wind } from 'lucide-react';
 import PlatformLinks from '@/components/platform-links';
+import SystemeEmbedMount from '@/components/systeme-embed-mount';
 
 const YOUTUBE = 'https://www.youtube.com/@mindhavenita/videos';
 const paths = {
@@ -85,7 +86,10 @@ export default function Intent() {
       <aside className="ih-reading"><span>LA RICERCA</span><p>Benefici, studi e limiti della meditazione guidata</p><Link href="/ricerca-meditazione-guidata">Leggi l’approfondimento <ArrowUpRight size={14} /></Link></aside>
       <section className="ih-membership">
         <div className="ih-membership-heading"><p className="ih-label">IL PROSSIMO PASSO, CON CALMA</p><h2>Un percorso audio<br />più <em>vicino a te.</em></h2><p>La membership audio di Mind Haven è in fase di pre-lancio. Stiamo preparando un luogo dedicato per continuare ad ascoltare, con il tuo ritmo.</p></div>
-        <PlatformLinks context={current.key} />
+        <div className="ih-membership-actions">
+          <SystemeEmbedMount context={current.key} position="intent_membership" />
+          <PlatformLinks context={current.key} />
+        </div>
       </section>
       <section className="ih-more"><div><p className="ih-label">PUOI CAMBIARE DIREZIONE</p><h2>Segui ciò che ti serve.</h2></div><div className="ih-more-links">{Object.entries(paths).filter(([path]) => path !== location).map(([path, item]) => <Link key={path} href={path}><span>{item.name}</span><ArrowUpRight size={16} /></Link>)}</div></section>
       <section className="ih-disclaimer"><p>Mind Haven propone pratiche di benessere e rilassamento, non diagnosi o trattamenti medici o psicologici. Non sostituisce il parere di un professionista della salute. Se la meditazione ti provoca disagio, interrompila e chiedi supporto. Non ascoltare alla guida.</p></section>
