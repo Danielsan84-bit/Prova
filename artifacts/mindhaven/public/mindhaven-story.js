@@ -115,9 +115,13 @@
       ) !important;
     }
     #hero > div > div:nth-child(2) > [class*="rounded-[24px]"].mh-morning-premium-box .mh-morning-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
       padding-bottom: 12px;
       margin-bottom: 16px !important;
-      border-bottom: 1px solid rgba(26, 35, 58, .8);
+      border-bottom: 1px solid rgba(237, 247, 249, .12);
     }
     #hero > div > div:nth-child(2) > [class*="rounded-[24px]"].mh-morning-premium-box .mh-morning-launch-pill {
       display: inline-flex !important;
@@ -126,6 +130,13 @@
       background: rgba(215, 179, 110, .1) !important;
       border-color: rgba(215, 179, 110, .3) !important;
       color: #d7b36e !important;
+      border-style: solid;
+      border-width: 1px;
+      border-radius: 999px;
+      padding: 2px 10px;
+      line-height: 1.4;
+      text-transform: uppercase;
+      white-space: nowrap;
       font-weight: 800 !important;
       letter-spacing: .14em !important;
     }
@@ -164,7 +175,7 @@
     }
     #hero > div > div:nth-child(2) > [class*="rounded-[24px]"].mh-morning-premium-box .mh-morning-subtitle {
       margin-bottom: 16px !important;
-      color: #8a94b0 !important;
+      color: rgba(237, 247, 249, .72) !important;
       font-size: 12.5px !important;
       line-height: 1.5 !important;
     }
@@ -193,9 +204,14 @@
       text-shadow: 0 2px 12px rgba(0, 242, 254, .25);
     }
     #hero > div > div:nth-child(2) > [class*="rounded-[24px]"].mh-morning-premium-box .mh-morning-original-price {
-      color: rgba(138, 148, 176, .58) !important;
+      color: rgba(237, 247, 249, .48) !important;
     }
     #hero > div > div:nth-child(2) > [class*="rounded-[24px]"].mh-morning-premium-box .mh-morning-discount {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 9px;
+      border-radius: 999px;
+      line-height: 1.3;
       border: 1px solid rgba(0, 242, 254, .3);
       background: rgba(0, 242, 254, .1) !important;
       color: #00f2fe !important;
@@ -207,10 +223,15 @@
       color: #d7b36e !important;
     }
     #hero > div > div:nth-child(2) > [class*="rounded-[24px]"].mh-morning-premium-box .mh-morning-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       height: 48px !important;
+      padding: 0 16px;
       border-radius: 999px !important;
-      background: linear-gradient(100deg, #edf8fa, #d8f5f8) !important;
-      color: #07090e !important;
+      background: linear-gradient(100deg, #EDF7F9, #FFFFFF) !important;
+      color: #08111D !important;
       font-weight: 800 !important;
       box-shadow: 0 4px 22px rgba(0, 242, 254, .3) !important;
     }
@@ -229,7 +250,157 @@
       background: rgba(0, 242, 254, .07) !important;
     }
     #hero > div > div:nth-child(2) > [class*="rounded-[24px]"].mh-morning-premium-box .mh-morning-payment-note {
-      color: rgba(138, 148, 176, .82) !important;
+      margin: 10px 0 0 !important;
+      color: rgba(237, 247, 249, .68) !important;
+      font-size: 10.5px !important;
+      line-height: 1.45 !important;
+      text-align: center !important;
+    }
+    #hero .mh-morning-premium-box .mh-morning-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #EDF7F9;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: .2em;
+    }
+    #hero .mh-morning-premium-box .mh-morning-specular {
+      position: absolute;
+      top: 0;
+      left: 32px;
+      right: 32px;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(
+        90deg,
+        transparent 5%,
+        rgba(69, 198, 207, .85) 45%,
+        rgba(217, 185, 104, .9) 60%,
+        transparent 95%
+      );
+    }
+    #hero .mh-morning-premium-box .mh-morning-logo {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+      object-fit: contain;
+    }
+    #hero .mh-morning-premium-box .mh-morning-days {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 0 0 8px;
+    }
+    #hero .mh-morning-premium-box .mh-morning-day-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 0 0 8px;
+      margin: 0 0 8px;
+      border-bottom: 1px solid rgba(237, 247, 249, .12);
+      color: rgba(237, 247, 249, .88);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    #hero .mh-morning-premium-box .mh-morning-day-row:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: 0;
+    }
+    #hero .mh-morning-premium-box .mh-morning-day-number {
+      min-width: 18px;
+      margin-top: 1px;
+      color: #D9B968;
+      font-size: 9.5px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    #hero .mh-morning-premium-box .mh-morning-day-copy {
+      min-width: 0;
+    }
+    #hero .mh-morning-premium-box .mh-morning-day-copy strong {
+      color: #FFFFFF;
+      font-weight: 700;
+    }
+    #hero .mh-morning-premium-box .mh-morning-day-description {
+      color: rgba(237, 247, 249, .62);
+      font-weight: 400;
+    }
+    #hero .mh-morning-premium-box .mh-morning-days-extra[hidden] {
+      display: none !important;
+    }
+    #hero .mh-morning-premium-box .mh-morning-drawer-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 0 0;
+      border: 0;
+      background: transparent;
+      color: #45C6CF;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    #hero .mh-morning-premium-box .mh-morning-drawer-icon {
+      width: 11px;
+      height: 11px;
+      transition: transform .2s ease;
+    }
+    #hero .mh-morning-premium-box .mh-morning-drawer-toggle[aria-expanded="true"] .mh-morning-drawer-icon {
+      transform: rotate(180deg);
+    }
+    #hero .mh-morning-premium-box .mh-morning-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 14px 0 16px;
+    }
+    #hero .mh-morning-premium-box .mh-morning-specs span {
+      padding: 3px 8px;
+      border: 1px solid rgba(237, 247, 249, .14);
+      border-radius: 6px;
+      background: rgba(21, 39, 67, .56);
+      color: rgba(237, 247, 249, .72);
+      font-size: 9.5px;
+      font-weight: 600;
+    }
+    #hero .mh-morning-premium-box .mh-morning-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    #hero .mh-morning-premium-box .mh-morning-original-price {
+      color: rgba(237, 247, 249, .48) !important;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    #hero .mh-morning-premium-box .mh-morning-discount {
+      margin-left: auto;
+    }
+    #hero .mh-morning-premium-box .mh-morning-primary {
+      width: 100%;
+      background: linear-gradient(100deg, #EDF7F9, #FFFFFF) !important;
+      color: #08111D !important;
+      font-size: 12px;
+    }
+    #hero .mh-morning-premium-box .mh-morning-primary:disabled {
+      opacity: .92;
+      cursor: default;
+      transform: none;
+    }
+    #hero .mh-morning-premium-box .mh-morning-payment-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      color: rgba(237, 247, 249, .68) !important;
+    }
+    #hero .mh-morning-premium-box .mh-morning-guarantee-icon {
+      color: #D9B968;
+      font-size: 12px;
     }
     .mh-footer-socials {
       display: flex;
@@ -433,44 +604,108 @@
     );
     const box = title?.parentElement;
     if (!box || !box.classList.contains('overflow-hidden')) return false;
+    if (box.dataset.mhMorningRoutineBuilt === 'true') return true;
 
     box.classList.add('mh-morning-premium-box');
-    box.firstElementChild?.classList.add('mh-morning-specular');
+    box.dataset.mhMorningRoutineBuilt = 'true';
+    box.innerHTML = `
+      <div class="mh-morning-specular" aria-hidden="true"></div>
+      <div class="mh-morning-box-header">
+        <div class="mh-morning-brand">
+          <img class="mh-morning-logo" src="images/mind-haven-uploaded-logo.png" alt="">
+          <span>MIND HAVEN</span>
+        </div>
+        <div class="mh-morning-launch-pill">Lancio • 7 Tracce</div>
+      </div>
 
-    const header = box.children[1];
-    header?.classList.add('mh-morning-box-header');
-    header?.children[0]?.classList.add('mh-morning-launch-pill');
-    header?.children[1]?.classList.add('mh-morning-availability');
+      <div class="mh-morning-copy">
+        <h3 class="mh-morning-title">Morning <span class="mh-morning-title-accent">Routine</span></h3>
+        <p class="mh-morning-subtitle">7 mattine. 10 minuti. La calma che resta con te per tutto il giorno.</p>
+      </div>
 
-    title.classList.add('mh-morning-title');
-    title.querySelector('span')?.classList.add('mh-morning-title-accent');
-    title.nextElementSibling?.classList.add('mh-morning-subtitle');
+      <div class="mh-morning-days" aria-label="Programma di 7 giorni">
+        <div class="mh-morning-day-row">
+          <span class="mh-morning-day-number">01</span>
+          <span class="mh-morning-day-copy"><strong>Risveglio calmo</strong> — <span class="mh-morning-day-description">spegni il loop dei pensieri</span></span>
+        </div>
+        <div class="mh-morning-day-row">
+          <span class="mh-morning-day-number">02</span>
+          <span class="mh-morning-day-copy"><strong>Ritorno al corpo</strong> — <span class="mh-morning-day-description">dal mentale al parasimpatico</span></span>
+        </div>
+        <div class="mh-morning-day-row">
+          <span class="mh-morning-day-number">03</span>
+          <span class="mh-morning-day-copy"><strong>Focus pulito</strong> — <span class="mh-morning-day-description">entri in flow senza forzatura</span></span>
+        </div>
+      </div>
 
-    const preview = [...box.children].find((child) =>
-      child.textContent.toLowerCase().includes('preview traccia'),
-    );
-    if (preview) {
-      preview.classList.add('mh-morning-preview');
-      preview.firstElementChild?.classList.add('mh-morning-preview-heading');
-      [...preview.querySelectorAll('div.flex-1.rounded-full')].forEach((bar) =>
-        bar.classList.add('mh-morning-audio-bar'),
-      );
-    }
+      <div class="mh-morning-days-extra" data-mh-routine-extra hidden>
+        <div class="mh-morning-days">
+          <div class="mh-morning-day-row">
+            <span class="mh-morning-day-number">04</span>
+            <span class="mh-morning-day-copy"><strong>Stabilità emotiva</strong> — <span class="mh-morning-day-description">resti centrato sotto pressione</span></span>
+          </div>
+          <div class="mh-morning-day-row">
+            <span class="mh-morning-day-number">05</span>
+            <span class="mh-morning-day-copy"><strong>Respiro profondo</strong> — <span class="mh-morning-day-description">abbassi il rumore di fondo</span></span>
+          </div>
+          <div class="mh-morning-day-row">
+            <span class="mh-morning-day-number">06</span>
+            <span class="mh-morning-day-copy"><strong>Chiarezza mentale</strong> — <span class="mh-morning-day-description">scegli cosa conta oggi</span></span>
+          </div>
+          <div class="mh-morning-day-row">
+            <span class="mh-morning-day-number">07</span>
+            <span class="mh-morning-day-copy"><strong>Integrazione</strong> — <span class="mh-morning-day-description">la calma che porti con te</span></span>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="mh-morning-drawer-toggle" data-mh-routine-toggle aria-expanded="false" aria-controls="mhMorningRoutineExtra">
+        <span data-mh-routine-toggle-label>+ altri 4 giorni</span>
+        <svg class="mh-morning-drawer-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="m3 6 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
 
-    [...box.querySelectorAll('span')].forEach((span) => {
-      const value = span.textContent.trim();
-      if (value === '€4,99') span.classList.add('mh-morning-price');
-      if (value === '€19,99') span.classList.add('mh-morning-original-price');
-      if (value.toLowerCase().includes('75%')) span.classList.add('mh-morning-discount');
+      <div class="mh-morning-specs">
+        <span>File tuoi per sempre</span>
+        <span>Offline</span>
+        <span>Guida PDF 2 pag.</span>
+      </div>
+
+      <div class="mh-morning-price-row">
+        <span class="mh-morning-price">€4,99</span>
+        <span class="mh-morning-original-price"><s>€19,99</s></span>
+        <span class="mh-morning-discount">—75% LANCIO</span>
+      </div>
+
+      <button type="button" class="mh-morning-primary" data-mh-routine-buy>
+        <span data-mh-routine-buy-label>Scarica il protocollo M.R. — €4,99</span>
+        <span data-mh-routine-buy-arrow aria-hidden="true">→</span>
+      </button>
+      <p class="mh-morning-payment-note">
+        <span class="mh-morning-guarantee-icon" aria-hidden="true">🛡️</span>
+        <span>Tieni i file anche se chiedi rimborso. Zero abbonamenti.</span>
+      </p>
+    `;
+
+    const extraDays = box.querySelector('[data-mh-routine-extra]');
+    if (extraDays) extraDays.id = 'mhMorningRoutineExtra';
+    box.querySelector('[data-mh-routine-toggle]')?.addEventListener('click', (event) => {
+      const toggle = event.currentTarget;
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      if (extraDays) extraDays.hidden = expanded;
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      const label = toggle.querySelector('[data-mh-routine-toggle-label]');
+      if (label) label.textContent = expanded ? '+ altri 4 giorni' : '— mostra meno';
     });
 
-    box.querySelectorAll('ul li').forEach((item) => {
-      item.firstElementChild?.classList.add('mh-morning-feature-icon');
+    const buyButton = box.querySelector('[data-mh-routine-buy]');
+    buyButton?.addEventListener('click', () => {
+      buyButton.disabled = true;
+      const label = buyButton.querySelector('[data-mh-routine-buy-label]');
+      const arrow = buyButton.querySelector('[data-mh-routine-buy-arrow]');
+      if (label) label.textContent = 'Protocollo M.R. scaricato ✓';
+      if (arrow) arrow.hidden = true;
     });
-    const buttons = [...box.querySelectorAll('button')];
-    buttons[0]?.classList.add('mh-morning-primary');
-    buttons[1]?.classList.add('mh-morning-secondary');
-    box.lastElementChild?.classList.add('mh-morning-payment-note');
     return true;
   };
 
