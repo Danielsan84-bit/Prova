@@ -48,10 +48,18 @@
     #hero-form .mh-gold-stat span {
       color: #DAB564 !important;
     }
+    #chi-siamo > .mh-about-heading {
+      max-width: 900px;
+      margin: 0 auto 36px !important;
+      text-align: center !important;
+    }
     @media (max-width: 768px) {
       #chi-siamo .mh-origin-story {
         font-size: 13px;
         line-height: 1.8;
+      }
+      #chi-siamo > .mh-about-heading {
+        margin-bottom: 28px !important;
       }
     }
   `;
@@ -106,8 +114,53 @@
     return true;
   };
 
+  const applyStoryHeading = () => {
+    const section = document.querySelector('#chi-siamo');
+    const reference = document.querySelector('#benefici h2');
+    if (!section || !reference) return false;
+
+    let heading = section.querySelector(':scope > .mh-about-heading');
+    if (!heading) {
+      heading = reference.cloneNode(false);
+      heading.textContent = 'Chi siamo';
+      heading.classList.add('mh-about-heading', 'text-center');
+      section.insertBefore(heading, section.firstElementChild);
+    }
+    return true;
+  };
+
+  const applyNavigationOrder = () => {
+    const chiButtons = [...document.querySelectorAll('header button')].filter(
+      (button) => button.textContent.trim() === 'Chi Siamo',
+    );
+    if (!chiButtons.length) return false;
+
+    const groups = new Set(chiButtons.map((button) => button.parentElement));
+    for (const group of groups) {
+      if (!group) return false;
+      const buttons = [...group.children].filter((child) => child.tagName === 'BUTTON');
+      const benefits = buttons.find((button) => button.textContent.trim() === 'Benefici');
+      const chiSiamo = buttons.find((button) => button.textContent.trim() === 'Chi Siamo');
+      const method = buttons.find((button) => button.textContent.trim() === 'Il Metodo');
+      if (!benefits || !chiSiamo || !method) return false;
+      benefits.after(chiSiamo);
+
+      const ordered = [...group.children].filter((child) => child.tagName === 'BUTTON');
+      if (
+        ordered.indexOf(chiSiamo) !== ordered.indexOf(benefits) + 1 ||
+        ordered.indexOf(method) !== ordered.indexOf(chiSiamo) + 1
+      ) return false;
+    }
+    return true;
+  };
+
   const applyPageUpdates = () =>
-    applyStory() && applyDanielePhoto() && applyHeroStats() && applySectionOrder();
+    applyStory() &&
+    applyDanielePhoto() &&
+    applyHeroStats() &&
+    applySectionOrder() &&
+    applyStoryHeading() &&
+    applyNavigationOrder();
 
   if (applyPageUpdates()) return;
 
