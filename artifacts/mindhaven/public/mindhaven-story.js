@@ -13,6 +13,37 @@
     "<p>Insieme a Luca lo abbiamo trasformato in una missione pulita e concreta: <strong>un protocollo audio da indossare con un semplice paio di cuffie</strong>, uno spazio sicuro per staccare il loop dei pensieri, proteggere la propria mente e ricordarsi che <strong>fermarsi per dieci minuti non è una debolezza</strong>, ma l'unico modo per non crollare.</p>",
   ];
 
+  const audioChannelLinks = [
+    {
+      match: /\byoutube\b/i,
+      href: 'https://www.youtube.com/@mindhavenita/videos',
+    },
+    {
+      match: /\bspotify\b/i,
+      href: 'https://open.spotify.com/show/7FguYf5NWdRwEUitBeAR6d?si=YOOnTXgnR3OqtTDwDOmaSg&nd=1&dlsi=22a067f79d214302',
+    },
+    {
+      match: /\bamazon music\b/i,
+      href: 'https://music.amazon.it/podcasts/273525a2-815f-4e38-a29d-d00b4d8f75d5/mind-haven-italia',
+    },
+  ];
+
+  document.addEventListener('click', (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    const button = target?.closest('button');
+    if (!button) return;
+
+    const label = (button.innerText || button.textContent || '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const channel = audioChannelLinks.find(({ match }) => match.test(label));
+    if (!channel) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    window.open(channel.href, '_blank', 'noopener,noreferrer');
+  }, true);
+
   const style = document.createElement('style');
   style.id = 'mh-origin-story-style';
   style.textContent = `
@@ -315,7 +346,7 @@
     #hero .mh-morning-premium-box .mh-morning-day-number {
       min-width: 18px;
       margin-top: 1px;
-      color: #D9B968;
+      color: #EDF7F9 !important;
       font-size: 9.5px;
       font-weight: 700;
       font-variant-numeric: tabular-nums;
