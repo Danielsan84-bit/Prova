@@ -16,3 +16,9 @@ Approved palette:
 **Why:** The user supplied these assets and explicitly asked that the logo and palette be used for Mind Haven.
 
 **How to apply:** Keep these colors and Montserrat consistent across Mind Haven pages, using the lockup or its mark instead of the older logo treatment while preserving readable contrast.
+
+For future Mind Haven pages, aim for a premium blend of Apple's clarity, Brain.fm's focus-oriented framing, and Insight Timer's welcoming breadth. Use these as high-level references only; do not copy their layouts, copy, or assets.
+
+**Why:** The user explicitly requested this direction for the Mind Haven redesign.
+
+**How to apply:** Express those qualities through Mind Haven's own maze-and-wave identity, Italian content, real sessions, and approved palette.

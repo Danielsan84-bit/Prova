@@ -1,10 +1,10 @@
 @theme {
-  --color-fir: #171522;
-  --color-fir-2: #252138;
-  --color-moss: #45d0bd;
-  --color-lichen: #a2f5ff;
-  --color-mist: #f4eff9;
-  --color-ember: #ea84c2;
+  --color-fir: #081110;
+  --color-fir-2: #162743;
+  --color-moss: #41bacd;
+  --color-lichen: #ecf7f9;
+  --color-mist: #ffffff;
+  --color-ember: #dab564;
   --font-sans: 'Montserrat', system-ui, sans-serif;
   --font-serif: 'Montserrat', system-ui, sans-serif;
 }
@@ -15,15 +15,15 @@ html {
 
 body {
   margin: 0;
-  background: #171522;
-  color: #f4eff9;
+  background: #081110;
+  color: #ffffff;
   font-family: 'Montserrat', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 .grain {
   min-height: 100vh;
-  background: #171522;
+  background: #081110;
 }
 
 .display {
@@ -45,7 +45,7 @@ body {
 
 :focus-visible {
   border-radius: 6px;
-  outline: 2px solid #45d0bd;
+  outline: 2px solid #41bacd;
   outline-offset: 3px;
 }
 

@@ -43,11 +43,17 @@ function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; 
   );
 }
 
-function Logo({ light = false }: { light?: boolean }) {
+function Logo({ footer = false }: { footer?: boolean }) {
   return (
-    <a href="#top" className="flex items-center gap-3" aria-label="Mind Haven, torna all'inizio" data-testid="link-logo">
-      <img src="/__mockup/images/mindhaven/favicon.png" alt="" width={36} height={36} className="rounded-full" />
-      <span className={`display text-xl ${light ? 'text-mist' : 'text-fir'}`}>Mind Haven</span>
+    <a href="#top" className="inline-flex shrink-0 items-center gap-3" aria-label="Mind Haven, torna all'inizio" data-testid="link-logo">
+      {footer ? (
+        <img src="/__mockup/images/mindhaven/mind-haven-lockup.png" alt="Mind Haven — Change begins within" className="h-36 w-auto" />
+      ) : (
+        <>
+          <img src="/__mockup/images/mindhaven/mind-haven-mark.png" alt="" width={44} height={44} className="size-10 rounded-full border border-moss/30 bg-fir p-1 object-contain md:size-11" />
+          <span className="display text-xs font-medium tracking-[0.2em] text-mist">MIND HAVEN</span>
+        </>
+      )}
     </a>
   );
 }
@@ -63,13 +69,13 @@ function Header() {
   }, []);
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${solid ? 'bg-fir/90 backdrop-blur-md' : ''}`}>
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-10">
-        <Logo light />
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-2 md:px-10">
+        <Logo />
         <nav aria-label="Principale" className="hidden items-center gap-8 lg:flex">
           {NAV.map((n) => (
             <a key={n.href} href={n.href} data-testid={`link-nav-${n.label.toLowerCase()}`} className="group relative text-sm text-mist/85 hover:text-mist">
               {n.label}
-              <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-ember transition-transform duration-500 group-hover:scale-x-100" />
+              <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-moss transition-transform duration-500 group-hover:scale-x-100" />
             </a>
           ))}
         </nav>
@@ -128,7 +134,7 @@ function Hero() {
             Meditazioni gratuite, suoni immersivi e piccole routine di riposo. Un posto dove fermarti cinque minuti, o un’ora.
           </p>
           <div className="flex flex-wrap gap-3">
-            <a href="#respiro" data-testid="button-hero-breath" className="group inline-flex items-center gap-2 rounded-full bg-ember px-7 py-4 font-medium text-fir transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-10px_#ea84c2]">
+            <a href="#respiro" data-testid="button-hero-breath" className="group inline-flex items-center gap-2 rounded-full bg-ember px-7 py-4 font-medium text-fir transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-10px_#dab564]">
               Respira con noi <ArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <a href="#sessioni" data-testid="button-hero-sessions" className="rounded-full border border-mist/40 px-7 py-4 text-mist transition hover:bg-mist/10">Ascolta una sessione</a>
@@ -240,7 +246,7 @@ function Breath() {
             ))}
             <div
               className="flex size-[78%] items-center justify-center rounded-full bg-gradient-to-br from-moss to-fir"
-              style={{ transform: reduce ? 'none' : `scale(${running ? p.scale : 0.55})`, transition: reduce ? 'none' : `transform ${running ? p.secs : 1.5}s ${idx === 1 ? 'linear' : 'ease-in-out'}`, boxShadow: '0 0 80px -20px #45d0bd' }}
+              style={{ transform: reduce ? 'none' : `scale(${running ? p.scale : 0.55})`, transition: reduce ? 'none' : `transform ${running ? p.secs : 1.5}s ${idx === 1 ? 'linear' : 'ease-in-out'}`, boxShadow: '0 0 80px -20px #41bacd' }}
             >
             </div>
             <div className="absolute text-center">
@@ -285,7 +291,7 @@ function Sessions({ onPlay }: { onPlay: (id: string) => void }) {
       </ul>
       <Reveal className="mt-12 flex flex-wrap items-center gap-4">
         <a href={SUB} target="_blank" rel="noopener noreferrer" data-testid="link-subscribe" className="rounded-full bg-fir px-7 py-4 font-medium text-mist transition hover:-translate-y-0.5 hover:bg-fir-2">Iscriviti al canale</a>
-        <span className="text-sm text-fir/60">Gratis, su YouTube.</span>
+        <span className="text-sm text-mist/60">Gratis, su YouTube.</span>
       </Reveal>
     </section>
   );
@@ -375,10 +381,10 @@ function Guide() {
       <Reveal delay={0.1}>
         <p className="text-sm uppercase tracking-[0.25em] text-moss">Guida da portare con te</p>
         <h2 className="display mt-4 text-5xl leading-[1.02] md:text-6xl">Una pratica di avvio, <em className="text-moss">da tenere in tasca.</em></h2>
-        <p className="mt-6 max-w-lg text-lg leading-relaxed text-fir/75">Un breve file di testo con una sequenza di dieci minuti: respiro, scansione del corpo, chiusura. Si scarica subito, senza registrazione.</p>
+        <p className="mt-6 max-w-lg text-lg leading-relaxed text-mist/75">Un breve file di testo con una sequenza di dieci minuti: respiro, scansione del corpo, chiusura. Si scarica subito, senza registrazione.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <button onClick={download} data-testid="button-download-guide" className="inline-flex items-center gap-2 rounded-full bg-fir px-7 py-4 font-medium text-mist transition hover:-translate-y-0.5"><Download className="size-4" /> Scarica la guida</button>
-          <a href={ACCOUNT} target="_blank" rel="noopener noreferrer" data-testid="link-kit" className="rounded-full border border-fir/30 px-7 py-4 transition hover:bg-fir/5">Kit introduttivo nel tuo account</a>
+          <a href={ACCOUNT} target="_blank" rel="noopener noreferrer" data-testid="link-kit" className="rounded-full border border-mist/30 px-7 py-4 transition hover:bg-mist/10">Kit introduttivo nel tuo account</a>
         </div>
       </Reveal>
     </section>
@@ -417,7 +423,7 @@ function Footer() {
           <p className="display text-[clamp(2.6rem,8vw,7rem)] leading-none">Ti aspettiamo, <em className="text-ember">quando vuoi.</em></p>
         </Reveal>
         <div className="mt-16 flex flex-col justify-between gap-10 md:flex-row">
-          <div className="space-y-4"><Logo light /><p className="max-w-xs text-sm text-mist/60">Meditazione, suono e riposo, in italiano.</p></div>
+          <div className="space-y-4"><Logo footer /><p className="max-w-xs text-sm text-mist/60">Meditazione, suono e riposo, in italiano.</p></div>
           <ul className="flex flex-col gap-2 text-sm">
             <li><a href={YT} target="_blank" rel="noopener noreferrer" className="hover:text-ember" data-testid="link-footer-youtube">Canale YouTube</a></li>
             <li><a href={SUB} target="_blank" rel="noopener noreferrer" className="hover:text-ember" data-testid="link-footer-subscribe">Iscriviti</a></li>
