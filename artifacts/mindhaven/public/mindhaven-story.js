@@ -431,31 +431,32 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      min-width: 160px;
-      padding: 12px 18px;
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      padding: 0;
       border: 1px solid rgba(65, 186, 205, .22);
-      border-radius: 999px;
+      border-radius: 50%;
       background: rgba(22, 39, 67, .34);
       color: rgba(236, 247, 249, .86);
-      font-size: 11px;
       text-decoration: none;
-      transition: border-color .2s ease, color .2s ease, background .2s ease, transform .2s ease;
+      transition: border-color .2s ease, color .2s ease, background .2s ease, transform .2s ease, box-shadow .2s ease;
     }
     .mh-footer-socials a:hover {
       transform: translateY(-1px);
-      border-color: rgba(218, 181, 100, .62);
-      background: rgba(22, 39, 67, .62);
-      color: #DAB564;
+      border-color: #45C6CF;
+      background: rgba(69, 198, 207, .1);
+      box-shadow: 0 0 0 3px rgba(217, 185, 104, .08);
+      color: #45C6CF;
     }
     .mh-footer-socials a:focus-visible {
       outline: 2px solid #41BACD;
       outline-offset: 3px;
     }
-    .mh-footer-socials a span {
-      color: #41BACD;
-      font-size: 13px;
-      line-height: 1;
+    .mh-footer-socials a svg {
+      display: block;
+      width: 21px;
+      height: 21px;
     }
     #chi-siamo > .mh-about-heading {
       max-width: 900px;
@@ -504,15 +505,16 @@
         gap: 12px;
       }
       .mh-footer-socials nav {
-        display: grid;
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: wrap;
         width: 100%;
-        gap: 8px;
+        gap: 10px;
       }
       .mh-footer-socials a {
-        width: 100%;
-        min-width: 0;
-        padding: 12px 14px;
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        padding: 0;
       }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -817,22 +819,40 @@
     const footer = document.querySelector('#root footer');
     const footerBottom = footer?.querySelector(':scope > div:last-child');
     if (!footerBottom) return false;
-    if (footerBottom.querySelector('[data-mh-footer-channels]')) return true;
+    const existingSection = footerBottom.querySelector('[data-mh-footer-channels]');
 
     const channels = [
       {
-        label: 'YouTube',
-        href: 'https://www.youtube.com/@mindhavenita/videos',
+        label: 'Instagram',
+        href: 'https://www.instagram.com/mindhavenitalia?cplk=NXRhcTJ2MnIxbHpn',
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5.1" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.1" stroke="currentColor" stroke-width="1.8"/><circle cx="17.75" cy="6.45" r="1.15" fill="currentColor"/></svg>',
       },
       {
-        label: 'Spotify',
-        href: 'https://open.spotify.com/show/7FguYf5NWdRwEUitBeAR6d?si=YOOnTXgnR3OqtTDwDOmaSg&nd=1&dlsi=22a067f79d214302',
+        label: 'Facebook',
+        href: 'https://www.facebook.com/share/1BSjJrEtpx/',
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M13.55 21v-8h2.7l.41-3.12h-3.11V7.89c0-.9.25-1.52 1.56-1.52h1.67V3.58c-.29-.04-1.28-.12-2.44-.12-2.42 0-4.08 1.48-4.08 4.2v2.22H7.52V13h2.74v8h3.29z"/></svg>',
       },
       {
-        label: 'Amazon Music',
-        href: 'https://music.amazon.it/podcasts/273525a2-815f-4e38-a29d-d00b4d8f75d5/mind-haven-italia',
+        label: 'TikTok',
+        href: 'https://www.tiktok.com/@mind.haven.italia',
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M14.25 3h3.08c.2 2.02 1.4 3.43 3.67 3.7v3.16a8.95 8.95 0 0 1-3.65-.94v5.15a5.42 5.42 0 1 1-5.42-5.42c.42 0 .82.04 1.21.13v3.3a2.14 2.14 0 1 0 1.11 1.87V3Z"/></svg>',
       },
     ];
+    const existingLinks = [...(existingSection?.querySelectorAll('nav a') ?? [])];
+    const alreadyCurrent =
+      existingLinks.length === channels.length &&
+      channels.every((channel, index) => {
+        const link = existingLinks[index];
+        return (
+          link.getAttribute('href') === channel.href &&
+          link.getAttribute('aria-label') ===
+            `Apri il profilo ufficiale Mind Haven su ${channel.label}` &&
+          link.querySelector('svg')
+        );
+      });
+    if (alreadyCurrent) return true;
+    existingSection?.remove();
+
     const section = document.createElement('div');
     section.className = 'mh-footer-socials';
     section.dataset.mhFooterChannels = '';
@@ -840,20 +860,16 @@
     const heading = document.createElement('p');
     heading.textContent = 'Canali Mind Haven';
     const nav = document.createElement('nav');
-    nav.setAttribute('aria-label', 'Canali ufficiali Mind Haven');
+    nav.setAttribute('aria-label', 'Profili social ufficiali Mind Haven');
 
-    channels.forEach(({ label, href }) => {
+    channels.forEach(({ label, href, icon }) => {
       const link = document.createElement('a');
       link.href = href;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.setAttribute('aria-label', `Apri il canale Mind Haven su ${label}`);
-      link.append(document.createTextNode(label));
-
-      const arrow = document.createElement('span');
-      arrow.textContent = '↗';
-      arrow.setAttribute('aria-hidden', 'true');
-      link.append(arrow);
+      link.title = label;
+      link.setAttribute('aria-label', `Apri il profilo ufficiale Mind Haven su ${label}`);
+      link.innerHTML = icon;
       nav.append(link);
     });
 
@@ -865,6 +881,13 @@
   const applyFounderPresentation = () => {
     const section = document.querySelector('#chi-siamo');
     if (!section) return false;
+
+    [...section.querySelectorAll('div')]
+      .filter(
+        (element) =>
+          element.textContent.trim() === 'Senza cognomi • Persone, non personaggi',
+      )
+      .forEach((element) => element.remove());
 
     section
       .querySelector('.mt-8.grid.grid-cols-3.gap-3.text-center')
