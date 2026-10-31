@@ -1,1 +1,3 @@
 - [Mind Haven brand](mindhaven-brand.md) — User-approved logo, Montserrat typography, and six-color palette for future Mind Haven design work.
+- [Mind Haven growth direction](mindhaven-growth.md) — The user chose a Replit funnel, Systeme.io email signup, and an audio-path subscription as the first offer.
+- [Mind Haven meditation positioning](mindhaven-meditation-positioning.md) — Voice-guided meditations for subconscious-pattern work; not binaural audio, with science claims framed cautiously.

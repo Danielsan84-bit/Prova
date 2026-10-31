@@ -1,25 +1,25 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Compass, Download, Focus, Menu, Moon, Pause, Play, Waves, X } from 'lucide-react';
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Compass, Focus, Menu, Moon, Pause, Play, Waves, X } from 'lucide-react';
+import { Link } from 'wouter';
+import PlatformLinks from '@/components/platform-links';
 
 const YT = 'https://www.youtube.com/@mindhavenita/videos';
 const SUB = 'https://www.youtube.com/@mindhavenita?sub_confirmation=1';
 const ACCOUNT = 'https://www.mindhaven.club/my-account/';
-const BLOG = 'https://www.mindhaven.club/blog-classic/';
-const ARTICLE = 'https://www.mindhaven.club/deep-work-il-segreto-dei-battiti-bineurali/';
 const NAV = [
   { href: '#percorso', label: 'Scegli un percorso' },
   { href: '#sessioni', label: 'Sessioni' },
   { href: '#respiro', label: 'Respiro' },
-  { href: '#suono', label: 'Il suono' },
+  { href: '#pratica', label: 'La pratica' },
   { href: '#guida', label: 'Guida' },
-  { href: '#blog', label: 'Dal blog' },
+  { href: '#ricerca', label: 'La ricerca' },
 ];
 const THEMES = [
-  { n: '01', t: 'Focus', d: 'Sessioni sonore pensate per accompagnare lo studio e il lavoro profondo, senza distrazioni.', img: '/images/moss.jpg', tone: 'Verde muschio', icon: Focus },
+  { n: '01', t: 'Focus', d: 'Meditazioni guidate per ritrovare attenzione e dedicarti allo studio o al lavoro.', img: '/images/moss.jpg', tone: 'Verde muschio', icon: Focus },
   { n: '02', t: 'Calma', d: 'Pratiche per rallentare nei giorni pieni e ritrovare un ritmo di respiro più gentile.', img: '/images/lake.jpg', tone: 'Lago al tramonto', icon: Waves },
-  { n: '03', t: 'Sonno', d: 'Suoni e meditazioni guidate per costruire una sera più morbida e una routine di riposo.', img: '/images/night.jpg', tone: 'Notte aperta', icon: Moon },
+  { n: '03', t: 'Sonno', d: 'Meditazioni guidate per accompagnare la sera e creare una routine di riposo più calma.', img: '/images/night.jpg', tone: 'Notte aperta', icon: Moon },
   { n: '04', t: 'Potenziale', d: 'Spazi di ascolto e visualizzazione per tornare a chiederti dove vuoi andare.', img: '/images/hero-forest.jpg', tone: 'Crinale all’alba', icon: Compass },
 ];
 const VIDEOS = ['JSdTubLRVUk', 'csPmohULrRU', 'XA6G4Wg3bxY', 'qBbf98KGa9s', 'uC2RjTVEAXc', 'ivrpDCngxAg'];
@@ -28,33 +28,6 @@ const PHASES = [
   { label: 'Trattieni', secs: 2, scale: 1 },
   { label: 'Espira', secs: 6, scale: 0.55 },
 ];
-const GUIDE = `MIND HAVEN — PICCOLA PRATICA DI AVVIO (circa 10 minuti)
-
-Non è un trattamento medico: è un invito a rallentare.
-
-1. Prepara lo spazio (1 min)
-   Siediti o sdraiati comodo. Abbassa le luci. Metti il telefono in modalità silenziosa.
-
-2. Arrivare (2 min)
-   Appoggia una mano sul petto, una sull'addome. Nota dove senti il respiro, senza cambiarlo.
-
-3. Respiro 4-2-6 (3 min)
-   Inspira per 4 secondi, pausa di 2, espira lentamente per 6.
-   Se perdi il conto, ricomincia. Va bene così.
-
-4. Scansione del corpo (3 min)
-   Porta l'attenzione a fronte, mandibola, spalle, mani, pancia, gambe.
-   Ad ogni espirazione, lascia cadere un po' di tensione.
-
-5. Chiudere (1 min)
-   Prima di aprire gli occhi, scegli una parola per il resto della giornata.
-
-Per ascoltare le sessioni gratuite in italiano:
-https://www.youtube.com/@mindhavenita/videos
-
-Nota: Mind Haven offre contenuti di benessere e rilassamento a scopo informativo.
-Non sostituisce il parere di un medico o di un professionista della salute.`;
-
 function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
   const reduce = useReducedMotion();
   return <motion.div className={className} initial={reduce ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-40px' }} transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}>{children}</motion.div>;
@@ -106,11 +79,11 @@ function Hero({ active, onSelect }: { active: number; onSelect: (index: number) 
     <div className="mh-hero-inner">
       <Reveal className="mh-hero-copy">
         <p className="mh-eyebrow"><span /> Un rifugio per la mente · in italiano</p>
-        <h1>Un momento<br />alla volta.</h1>
-        <p className="mh-hero-lede">Meditazioni gratuite, suoni immersivi e piccole routine di riposo. Parti da ciò che ti serve oggi.</p>
+        <h1>Meditazioni guidate,<br />un momento alla volta.</h1>
+        <p className="mh-hero-lede">Meditazioni guidate per “riprogrammare” il subconscio: esplora i tuoi schemi e allena nuove abitudini. Niente suoni binaurali: ti accompagna la voce.</p>
         <div className="mh-hero-links">
-          <a href="#sessioni" className="mh-primary-link">Esplora le sessioni <ArrowRight size={16} /></a>
-          <a href="#respiro" className="mh-secondary-link">Oppure fai una pausa <ArrowDownRight size={15} /></a>
+          <a href="#percorsi" className="mh-primary-link">Scegli il tuo percorso <ArrowRight size={16} /></a>
+          <a href="#membership" className="mh-secondary-link">Scopri la membership in arrivo <ArrowDownRight size={15} /></a>
         </div>
         <div className="mh-hero-foot"><span className="mh-foot-mark">01</span><span>Ascolto guidato, al tuo ritmo</span></div>
       </Reveal>
@@ -137,7 +110,7 @@ function Hero({ active, onSelect }: { active: number; onSelect: (index: number) 
         <a href="#percorso" className="mh-finder-next">Scopri il percorso <ArrowRight size={15} /></a>
       </motion.div>
     </div>
-    <div className="mh-hero-bottomline"><span>MINDFULNESS · SUONO · RIPOSO</span><span>SCORRI PER ESPLORARE <ArrowDownRight size={13} /></span></div>
+    <div className="mh-hero-bottomline"><span>MEDITAZIONE GUIDATA · CONSAPEVOLEZZA · RIPOSO</span><span>SCORRI PER ESPLORARE <ArrowDownRight size={13} /></span></div>
   </section>;
 }
 
@@ -231,48 +204,40 @@ function Breath() {
   </section>;
 }
 
-function Sound() {
-  return <section id="suono" className="mh-sound">
+function GuidedPractice() {
+  return <section id="pratica" className="mh-sound">
     <div className="mh-wrap">
-      <Reveal className="mh-sound-intro"><p className="mh-kicker">Una piccola guida all’ascolto</p><h2>Capire il suono,<br /><em>senza formule magiche.</em></h2><p>Due tipi di ritmo sonoro e un’idea da conoscere. Un supporto, non una terapia.</p></Reveal>
+      <Reveal className="mh-sound-intro"><p className="mh-kicker">La pratica Mind Haven</p><h2>Una voce che guida.<br /><em>Tu che scegli il ritmo.</em></h2><p>Non proponiamo battiti binaurali: le nostre meditazioni sono guidate dalla voce e ti invitano a portare attenzione al respiro, ai pensieri e alle intenzioni.</p></Reveal>
       <div className="mh-waveform" aria-hidden="true">{Array.from({ length: 52 }, (_, i) => <span key={i} style={{ height: `${20 + ((i * 31) % 68)}%` }} />)}</div>
       <div className="mh-sound-topics">
         {[
-          ['01', 'Battiti binaurali', 'Due toni leggermente diversi, uno per orecchio. Con le cuffie, la mente percepisce un terzo ritmo, la differenza tra i due.'],
-          ['02', 'Toni isocronici', 'Impulsi regolari di un singolo suono, accesi e spenti a ritmo costante. Funzionano anche senza cuffie.'],
-          ['03', 'Entrainment', 'L’idea è che il ritmo dell’ascolto possa accompagnare un certo stato di attenzione o di rilassamento. È un supporto, non una terapia.'],
+          ['01', 'Una voce ti accompagna', 'Le indicazioni guidano l’attenzione verso il respiro, il corpo o un’immagine mentale, senza imporre un risultato.'],
+          ['02', 'Noti i tuoi schemi', 'La pratica crea uno spazio per osservare pensieri e reazioni con più consapevolezza, senza giudicarti.'],
+          ['03', 'Alleni nuove abitudini', 'Ripetere una pratica può aiutarti a coltivare routine e intenzioni. “Riprogrammare” è una metafora, non una promessa clinica.'],
         ].map(([number, title, description]) => <Reveal key={number} className="mh-sound-topic"><span>{number}</span><h3>{title}</h3><p>{description}</p></Reveal>)}
       </div>
-      <a href={ARTICLE} target="_blank" rel="noopener noreferrer" className="mh-sound-article">Approfondisci: deep work e battiti binaurali <ArrowUpRight size={14} /></a>
+      <Link href="/ricerca-meditazione-guidata" className="mh-sound-article">Scopri cosa dice la ricerca <ArrowUpRight size={14} /></Link>
     </div>
   </section>;
 }
 
 function Guide() {
-  const download = () => {
-    const url = URL.createObjectURL(new Blob([GUIDE], { type: 'text/plain;charset=utf-8' }));
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'mind-haven-pratica-di-avvio.txt';
-    link.click();
-    URL.revokeObjectURL(url);
-  };
   return <section id="guida" className="mh-guide">
     <div className="mh-wrap mh-guide-layout">
       <Reveal className="mh-guide-image"><img src="/images/lake.jpg" alt="Lago calmo al tramonto" loading="lazy" /><span>UNA PRATICA, NESSUN OBBLIGO</span><b>10<small>MIN</small></b></Reveal>
-      <Reveal className="mh-guide-copy" delay={.08}><p className="mh-kicker">Un foglio da portare con te</p><h2>Dieci minuti.<br /><em>Solo tuoi.</em></h2><p>Una sequenza breve: arrivare, respirare, fare una scansione del corpo e chiudere. Si scarica subito, senza registrazione.</p><button onClick={download} className="mh-download"><Download size={16} /> Scarica la guida <ArrowDownRight size={14} /></button><a href={ACCOUNT} target="_blank" rel="noopener noreferrer" className="mh-guide-account">Kit introduttivo nel tuo account <ArrowUpRight size={14} /></a></Reveal>
+      <Reveal className="mh-guide-copy" delay={.08}><p className="mh-kicker">Un primo passo, al tuo ritmo</p><h2>Dieci minuti.<br /><em>Solo tuoi.</em></h2><p>Ascolta Mind Haven sul canale che preferisci. Trovi i percorsi su YouTube, Spotify e Amazon Music.</p><PlatformLinks context="guida" variant="light" /></Reveal>
     </div>
   </section>;
 }
 
-function Blog() {
-  return <section id="blog" className="mh-blog">
+function ResearchPreview() {
+  return <section id="ricerca" className="mh-blog">
     <div className="mh-wrap mh-blog-layout">
-      <Reveal><p className="mh-kicker">Dalle pagine del blog</p><h2>Curiosità<br />per <em>ascoltare.</em></h2><p className="mh-blog-note">Parole semplici per conoscere meglio i suoni che scegli.</p><a href={BLOG} target="_blank" rel="noopener noreferrer" className="mh-blog-all">Tutti gli articoli <ArrowUpRight size={14} /></a></Reveal>
-      <Reveal delay={.08}><a href={ARTICLE} target="_blank" rel="noopener noreferrer" className="mh-article">
+      <Reveal><p className="mh-kicker">Una sintesi basata sugli studi</p><h2>Meditazione guidata:<br /><em>cosa dice la ricerca.</em></h2><p className="mh-blog-note">Benefici osservati, limiti delle prove e cosa intendiamo quando parliamo di “riprogrammare il subconscio”.</p><Link href="/ricerca-meditazione-guidata" className="mh-blog-all">Leggi l’approfondimento <ArrowUpRight size={14} /></Link></Reveal>
+      <Reveal delay={.08}><Link href="/ricerca-meditazione-guidata" className="mh-article">
         <img src="/images/moss.jpg" alt="Felci e muschio con gocce di rugiada" loading="lazy" />
-        <div><span>FOCUS · APPROFONDIMENTO</span><h3>Deep work: il segreto dei battiti binaurali</h3><b>Leggi l’articolo <ArrowUpRight size={14} /></b></div>
-      </a></Reveal>
+        <div><span>RICERCA · MEDITAZIONE GUIDATA</span><h3>Benefici, studi e limiti</h3><b>Leggi l’approfondimento <ArrowUpRight size={14} /></b></div>
+      </Link></Reveal>
     </div>
   </section>;
 }
@@ -281,8 +246,8 @@ function Footer() {
   return <footer className="mh-footer">
     <div className="mh-wrap">
       <Reveal><div className="mh-footer-opening"><span>IL TUO SPAZIO RESTA QUI</span><h2>Ti aspettiamo,<br /><em>quando vuoi.</em></h2></div></Reveal>
-      <div className="mh-footer-main"><div><Logo footer /><p>Meditazione, suono e riposo,<br />in italiano.</p></div><nav aria-label="Link utili"><a href={YT} target="_blank" rel="noopener noreferrer">Canale YouTube <ArrowUpRight size={13} /></a><a href={SUB} target="_blank" rel="noopener noreferrer">Iscriviti <ArrowUpRight size={13} /></a><a href={BLOG} target="_blank" rel="noopener noreferrer">Blog <ArrowUpRight size={13} /></a><a href={ACCOUNT} target="_blank" rel="noopener noreferrer">Il mio account <ArrowUpRight size={13} /></a></nav></div>
-      <p className="mh-legal">Avvertenza: i contenuti di Mind Haven hanno scopo di benessere e rilassamento e non costituiscono consulto, diagnosi o trattamento medico o psicologico. Non sostituiscono il parere di un professionista della salute. Se soffri di epilessia o sei sensibile agli stimoli sonori ritmici, chiedi prima al tuo medico. Non ascoltare alla guida.</p>
+      <div className="mh-footer-main"><div><Logo footer /><p>Meditazioni guidate e benessere,<br />in italiano.</p></div><nav aria-label="Link utili"><a href={YT} target="_blank" rel="noopener noreferrer">Canale YouTube <ArrowUpRight size={13} /></a><a href={SUB} target="_blank" rel="noopener noreferrer">Iscriviti <ArrowUpRight size={13} /></a><Link href="/ricerca-meditazione-guidata">La ricerca <ArrowUpRight size={13} /></Link><a href={ACCOUNT} target="_blank" rel="noopener noreferrer">Il mio account <ArrowUpRight size={13} /></a></nav></div>
+      <p className="mh-legal">Avvertenza: i contenuti di Mind Haven sono pratiche di benessere e non costituiscono diagnosi o trattamento medico o psicologico. Non sostituiscono il parere di un professionista della salute. Se la meditazione ti provoca disagio, interrompila e chiedi supporto. Non ascoltare alla guida.</p>
     </div>
   </footer>;
 }
@@ -316,17 +281,35 @@ export default function Home() {
       .mh-premium .mh-path-card-copy a svg{color:var(--cyan)}
       .mh-premium .mh-finder-count,.mh-premium .mh-path-index,.mh-premium .mh-path-footnote,.mh-premium .mh-card-caption,.mh-premium .mh-session-bottom>span{color:#526372}
       .mh-premium .mh-path-option:not(.active){color:#566773}
+       .mh-intent-routes{padding:84px max(40px,calc((100% - 1200px)/2));background:#DCEEF1}.mh-intent-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:30px}.mh-intent-head h2{margin:13px 0 0;font-size:clamp(42px,5vw,62px);font-weight:500;line-height:.98;letter-spacing:-.07em}.mh-intent-head h2 em{font-weight:400;color:#0D6F7A}.mh-intent-head>p{max-width:290px;margin:0 0 5px;color:#526372;font-size:11px;line-height:1.8}.mh-intent-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.mh-intent-card{min-height:280px;position:relative;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;padding:19px;border-radius:12px;background-position:center;background-size:cover;color:#fff;text-decoration:none;transition:transform .25s}.mh-intent-card:hover{transform:translateY(-4px)}.mh-intent-card>span{font-size:8px;letter-spacing:.15em;color:rgba(255,255,255,.8)}.mh-intent-card>span i{color:var(--gold);font-style:normal}.mh-intent-card>div h3{margin:0 0 7px;font-size:25px;font-weight:500;letter-spacing:-.05em}.mh-intent-card>div p{margin:0;color:rgba(255,255,255,.75);font-size:10px}.mh-intent-card>svg{position:absolute;right:19px;bottom:19px;color:var(--gold)}
+       .mh-home-membership{display:grid;grid-template-columns:.85fr 1.15fr;align-items:center;gap:70px;padding:92px max(40px,calc((100% - 1160px)/2));background:var(--midnight);color:var(--ice)}.mh-home-membership-copy .mh-kicker{color:var(--gold)}.mh-home-membership-copy h2{margin:16px 0;font-size:clamp(43px,5vw,63px);font-weight:500;letter-spacing:-.075em;line-height:.99}.mh-home-membership-copy h2 em{color:var(--cyan);font-weight:400}.mh-home-membership-copy>p:not(.mh-kicker){max-width:420px;color:rgba(236,247,249,.66);font-size:11px;line-height:1.9}.mh-home-membership-note{display:block;margin-top:20px;color:rgba(236,247,249,.45);font-size:8px;letter-spacing:.07em}.mh-home-membership .mh-platform-links{max-width:620px}
+       @media(max-width:760px){.mh-intent-routes{padding:68px 20px}.mh-intent-head{display:block}.mh-intent-head>p{margin-top:16px}.mh-intent-grid{grid-template-columns:1fr;gap:10px}.mh-intent-card{min-height:210px}.mh-home-membership{grid-template-columns:1fr;gap:30px;padding:72px 20px}.mh-home-membership-copy h2{font-size:51px}.mh-home-membership .mh-platform-links{width:100%}.mh-platform-links{grid-template-columns:1fr}}
     `}</style>
     <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[110] focus:rounded-full focus:bg-[#DAB564] focus:px-4 focus:py-3">Vai ai contenuti</a>
     <Header />
     <main id="main">
       <Hero active={activeTheme} onSelect={setActiveTheme} />
+      <section id="percorsi" className="mh-intent-routes" aria-labelledby="mh-intent-title">
+        <div className="mh-intent-head"><div><p className="mh-kicker">Da dove vuoi cominciare?</p><h2 id="mh-intent-title">Tre spazi.<br /><em>Il tuo, adesso.</em></h2></div><p>Un punto di partenza per il momento che stai vivendo. Puoi cambiare strada quando vuoi.</p></div>
+        <div className="mh-intent-grid">
+          {[{href:'/sonno', title:'Sonno', line:'Lascia posare la giornata.', img:'/images/night.jpg', n:'01'}, {href:'/respiro', title:'Respiro e calma', line:'Fai spazio a una pausa.', img:'/images/lake.jpg', n:'02'}, {href:'/focus', title:'Concentrazione', line:'Ritrova il filo del focus.', img:'/images/moss.jpg', n:'03'}].map(item => <Link className="mh-intent-card" href={item.href} key={item.href} style={{backgroundImage:`linear-gradient(0deg,rgba(8,17,16,.82),rgba(8,17,16,.02) 78%),url(${item.img})`}}><span>{item.n} <i>·</i> IL TUO PERCORSO</span><div><h3>{item.title}</h3><p>{item.line}</p></div><ArrowUpRight size={17} /></Link>)}
+        </div>
+      </section>
+      <section id="membership" className="mh-home-membership" aria-labelledby="mh-home-membership-title">
+        <div className="mh-home-membership-copy">
+          <p className="mh-kicker">Mind Haven · pre-lancio</p>
+          <h2 id="mh-home-membership-title">Il prossimo ascolto,<br /><em>quando sarà pronto.</em></h2>
+          <p>La membership audio è in fase di pre-lancio. Nel frattempo, puoi ascoltare Mind Haven sui tuoi canali preferiti.</p>
+          <span className="mh-home-membership-note">YouTube · Spotify · Amazon Music</span>
+        </div>
+        <PlatformLinks context="homepage" />
+      </section>
       <Pathway active={activeTheme} onSelect={setActiveTheme} />
       <Sessions onPlay={setVideo} />
       <Breath />
-      <Sound />
+      <GuidedPractice />
       <Guide />
-      <Blog />
+      <ResearchPreview />
     </main>
     <Footer />
     <Dialog.Root open={!!video} onOpenChange={open => !open && setVideo(null)}>
