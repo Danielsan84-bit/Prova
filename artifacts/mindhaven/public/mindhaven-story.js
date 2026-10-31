@@ -85,15 +85,15 @@
       margin-left: auto !important;
       margin-right: auto !important;
       padding: 24px !important;
-      border: 1px solid rgba(0, 242, 254, .25) !important;
+      border: 1px solid rgba(69, 198, 207, .25) !important;
       border-radius: 28px !important;
       background:
-        radial-gradient(ellipse at 52% -2%, rgba(0, 242, 254, .1), transparent 38%),
-        linear-gradient(168deg, rgba(14, 23, 40, .94) 0%, rgba(8, 13, 24, .98) 100%) !important;
+        radial-gradient(ellipse at 52% -2%, rgba(69, 198, 207, .1), transparent 38%),
+        linear-gradient(168deg, rgba(21, 39, 67, .94) 0%, rgba(8, 17, 29, .98) 100%) !important;
       box-shadow:
         inset 0 0 0 1px rgba(255, 255, 255, .04),
         0 24px 65px -12px rgba(0, 0, 0, .85),
-        0 0 40px -8px rgba(0, 242, 254, .15) !important;
+        0 0 40px -8px rgba(69, 198, 207, .15) !important;
       -webkit-backdrop-filter: blur(28px);
       backdrop-filter: blur(28px);
       transition: border-color .3s ease, box-shadow .3s ease;
@@ -169,9 +169,9 @@
       line-height: 1.5 !important;
     }
     #hero > div > div:nth-child(2) > [class*="rounded-[24px]"].mh-morning-premium-box .mh-morning-preview {
-      border: 1px solid rgba(0, 242, 254, .16) !important;
+      border: 1px solid rgba(69, 198, 207, .16) !important;
       border-radius: 18px !important;
-      background: linear-gradient(168deg, rgba(7, 9, 14, .92), rgba(8, 13, 24, .96)) !important;
+      background: linear-gradient(168deg, rgba(8, 17, 29, .92), rgba(8, 17, 29, .96)) !important;
       box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .025);
     }
     #hero > div > div:nth-child(2) > [class*="rounded-[24px]"].mh-morning-premium-box .mh-morning-preview-heading {
